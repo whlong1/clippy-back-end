@@ -1,6 +1,9 @@
 import jwt from 'express-jwt'
 import jwks from 'jwks-rsa'
 
+// modify middleware to find user?
+// create user instance on signup
+
 const checkJwt = jwt.expressjwt({
   secret: jwks.expressJwtSecret({
     cache: true,
