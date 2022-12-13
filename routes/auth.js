@@ -8,6 +8,6 @@ const router = Router()
 
 /*---------- Public Routes ----------*/
 
-router.get('/verify', checkJwt, authCtrl.verify)
+router.get('/verify', checkJwt, authCtrl.verifyUser)
 
 export { router }
