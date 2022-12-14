@@ -26,12 +26,28 @@ async function getUser(req, res) {
       headers: { 'content-type': 'application/json', authorization: `Bearer ${accessToken}` }
     }
     const response = await axios(options)
-    // console.log(response.data.user_metadata)
     res.json(response.data)
   } catch (error) {
     console.log(error.message)
   }
 }
+
+async function updateUser(req, res) {
+  try {
+    const accessToken = await getAccessToken()
+    const options = {
+      data: req.body,
+      method: 'PATCH',
+      url: `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${req.params.userId}`,
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${accessToken}` }
+    }
+    const response = await axios(options)
+    res.json(response.data)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 
 async function deleteUser(req, res) {
   try {
@@ -52,4 +68,5 @@ export {
   getUsers,
   getUser,
   deleteUser,
+  updateUser
 }

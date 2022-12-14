@@ -8,6 +8,7 @@ const router = Router()
 
 router.get('/users', checkJwt, adminCtrl.getUsers)
 router.get('/users/:userId', checkJwt, adminCtrl.getUser)
+router.patch('/users/:userId', checkJwt, adminCtrl.updateUser)
 router.delete('/users/:userId', checkJwt, adminCtrl.deleteUser)
 
 
