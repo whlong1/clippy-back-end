@@ -17,4 +17,22 @@ async function getUsers(req, res) {
   }
 }
 
-export { getUsers }
+async function deleteUser(req, res) {
+  try {
+    const accessToken = await getAccessToken()
+    const options = {
+      method: 'DELETE',
+      url: `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${req.params.userId}`,
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${accessToken}` }
+    }
+    const response = await axios(options)
+    res.json(response.data)
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export {
+  getUsers,
+  deleteUser,
+}
