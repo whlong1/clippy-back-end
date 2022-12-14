@@ -1,70 +1,41 @@
 import { Profile } from '../models/profile.js'
-import { auth0MgmtApi } from '../helpers/auth0.js'
-
 import axios from 'axios'
 
 
-
-
+// Auth0 Management API Info
 async function getAccessToken() {
   const options = {
-    method: "POST",
+    method: 'POST',
     headers: { 'content-type': 'application/json' },
-    url: "https://dev-56chijhh78c0pcex.us.auth0.com/oauth/token",
+    url: `https://${process.env.AUTH0_DOMAIN}/oauth/token`,
     data: {
       grant_type: "client_credentials",
-      audience: "auth.ga-identity-app.com",
-
-      // Client Side Info:
-      // client_id: process.env.AUTH0_CLIENT_ID,
-      // client_secret: process.env.AUTH0_CLIENT_SECRET
-    
-      // My App (m2m) Currently works:
-      client_id: "U9BRjgCpT6cJsnoHjLiYgsU79Pkbnqrd",
-      client_secret: "D4Csv5s6j-vA5CG9qeRa3ErMXsRpmtplnGwbsgUrflExgELkXJlEKHv9AF5_9pQh",
+      client_id: process.env.CLIENT_ID,
+      audience: `https://${process.env.AUTH0_DOMAIN}/api/v2/`,
+      client_secret: process.env.CLIENT_SECRET,
     }
   }
-  const res = await axios(options)
-  return res.data.access_token
+  const response = await axios(options)
+  return response.data.access_token
 }
 
-
-async function getUser(sub, accessToken) {
-  console.log('TOKEN:::::::',accessToken)
-  try {
-    const options = {
-      method: 'GET',
-      // params: { search_engine: 'v3' },
-      // https://auth0.com/docs/api/management/v2#!/Users/get_users_by_id
-      url: `https://dev-56chijhh78c0pcex.us.auth0.com/userinfo`,
-      headers: { 
-        // 'content-type': 'application/json', 
-        authorization: `Bearer ${accessToken}` }
-    }
-    const res = await axios(options)
-    console.log(':::::RES:::::', res)
-  } catch (err) {
-    console.log('Get User Error', err.message)
-  }
-}
-
-
-
-async function verifyUser(req, res) {
+async function getUsers(req, res) {
   try {
     const accessToken = await getAccessToken()
-
-    // console.log('************', accessToken)
-    await getUser(req.auth.sub, accessToken)
-
-
-    // const profile = await Profile.findOne({ sub: req.auth.sub })
-    res.json({ msg: 'Oh Lord, why' })
+    const options = {
+      method: 'GET',
+      params: { search_engine: 'v3' },
+      url: `https://${process.env.AUTH0_DOMAIN}/api/v2/users`,
+      headers: { 'content-type': 'application/json', authorization: `Bearer ${accessToken}` }
+    }
+    const response = await axios(options)
+    console.log(':::: User List ::::', response.data)
+    res.json({ msg: 'OK' })
   } catch (error) {
-    console.log(error)
+    console.log(error.message)
   }
 }
 
 export {
-  verifyUser,
+  getUsers,
 }

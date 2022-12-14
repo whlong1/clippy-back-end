@@ -1,9 +1,6 @@
 import jwt from 'express-jwt'
 import jwks from 'jwks-rsa'
 
-// modify middleware to find user?
-// create user instance on signup
-
 const checkJwt = jwt.expressjwt({
   secret: jwks.expressJwtSecret({
     cache: true,
@@ -11,8 +8,8 @@ const checkJwt = jwt.expressjwt({
     jwksRequestsPerMinute: 5,
     jwksUri: 'https://dev-56chijhh78c0pcex.us.auth0.com/.well-known/jwks.json'
   }),
-  audience: 'auth.ga-identity-app.com',
-  issuer: 'https://dev-56chijhh78c0pcex.us.auth0.com/',
+  audience: process.env.AUTH0_AUDIENCE,
+  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ['RS256']
 })
 
