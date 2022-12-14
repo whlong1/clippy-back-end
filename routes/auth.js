@@ -1,13 +1,13 @@
 import { Router } from 'express'
-import * as authCtrl from '../controllers/auth.js'
 import { checkJwt } from '../middleware/auth.js'
-
+import * as authCtrl from '../controllers/auth.js'
 
 const router = Router()
 
-/*---------- Protected Routes ----------*/
+/*---------- Public Routes ----------*/
 
-router.get('/verify', checkJwt, authCtrl.getUsers)
+
+/*---------- Protected Routes ----------*/
 
 
 export { router }
