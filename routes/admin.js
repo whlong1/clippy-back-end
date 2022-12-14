@@ -7,6 +7,7 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 
 router.get('/users', checkJwt, adminCtrl.getUsers)
+router.get('/users/:userId', checkJwt, adminCtrl.getUser)
 router.delete('/users/:userId', checkJwt, adminCtrl.deleteUser)
 
 
