@@ -25,8 +25,8 @@ async function deleteUser(req, res) {
       url: `https://${process.env.AUTH0_DOMAIN}/api/v2/users/${req.params.userId}`,
       headers: { 'content-type': 'application/json', authorization: `Bearer ${accessToken}` }
     }
-    const response = await axios(options)
-    res.json(response.data)
+    await axios(options)
+    res.json({ msg: 'OK' })
   } catch (error) {
     console.log(error.message)
   }
