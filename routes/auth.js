@@ -6,6 +6,7 @@ const router = Router()
 
 /*---------- Public Routes ----------*/
 
+router.get('/tokens', checkJwt, authCtrl.getUserDataFromToken)
 
 /*---------- Protected Routes ----------*/
 

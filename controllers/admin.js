@@ -48,7 +48,6 @@ async function updateUser(req, res) {
   }
 }
 
-
 async function deleteUser(req, res) {
   try {
     const accessToken = await getAccessToken()
@@ -68,5 +67,5 @@ export {
   getUsers,
   getUser,
   deleteUser,
-  updateUser
+  updateUser,
 }
