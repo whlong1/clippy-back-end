@@ -5,8 +5,8 @@ const router = Router()
 
 /*---------- Public Routes ----------*/
 
+router.get('/', profilesCtrl.index)
 
 /*---------- Protected Routes ----------*/
-router.get('/', profilesCtrl.index)
 
 export { router }
