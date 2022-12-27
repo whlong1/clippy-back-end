@@ -13,4 +13,9 @@ const checkJwt = jwt.expressjwt({
   algorithms: ['RS256']
 })
 
-export { checkJwt }
+const checkAdmin = (req, res, next) => {
+  console.log(req.auth)
+  next()
+}
+
+export { checkJwt, checkAdmin }
