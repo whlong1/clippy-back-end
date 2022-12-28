@@ -5,7 +5,7 @@ async function index(req, res) {
     const profiles = await Profile.find({})
     res.json(profiles)
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 }
 

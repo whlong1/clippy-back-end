@@ -6,6 +6,7 @@ import formData from 'express-form-data'
 
 import { router as authRouter } from './routes/auth.js'
 import { router as adminRouter } from './routes/admin.js'
+import { router as cohortRouter } from './routes/cohort.js'
 import { router as profilesRouter } from './routes/profiles.js'
 
 import './config/database.js'
@@ -19,6 +20,7 @@ app.use(formData.parse())
 
 app.use('/api/auth', authRouter)
 app.use('/api/admin', adminRouter)
+app.use('/api/cohort', cohortRouter)
 app.use('/api/profiles', profilesRouter)
 
 app.use(function (req, res, next) {

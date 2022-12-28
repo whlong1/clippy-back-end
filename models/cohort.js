@@ -28,3 +28,4 @@ const cohortSchema = new mongoose.Schema({
 const Cohort = mongoose.model('Cohort', cohortSchema)
 
 export { Cohort }
+
