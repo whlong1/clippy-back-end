@@ -1,6 +1,5 @@
 import { Cohort } from '../models/cohort/cohort.js'
 
-
 const cohortCompositionStrings = [
   "ias",
   "tas",
@@ -62,11 +61,11 @@ async function approveProfile(req, res) {
     const { formerRole, newRole } = req.body
     const { cohortId, profileId } = req.params
     await Promise.all([
-      await Cohort.updateOne(
+      Cohort.updateOne(
         { _id: cohortId },
         { $pull: { [formerRole]: profileId } },
       ),
-      await Cohort.updateOne(
+      Cohort.updateOne(
         { _id: cohortId },
         { $addToSet: { [newRole]: profileId } }
       )
@@ -74,6 +73,19 @@ async function approveProfile(req, res) {
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
     console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+async function denyProfile(req, res) {
+  try {
+    const { cohortId, profileId } = req.params
+    await Cohort.updateOne(
+      { _id: cohortId },
+      { $pull: { waitlist: profileId } },
+    )
+    res.status(200).json({ msg: 'OK' })
+  } catch (err) {
     res.status(500).json(err)
   }
 }
@@ -97,6 +109,7 @@ export {
   index,
   create,
   indexPeople,
+  denyProfile,
   approveProfile,
   addProfileToWaitlist,
 }

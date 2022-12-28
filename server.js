@@ -6,7 +6,7 @@ import formData from 'express-form-data'
 
 import { router as authRouter } from './routes/auth.js'
 import { router as adminRouter } from './routes/admin.js'
-import { router as cohortRouter } from './routes/cohort.js'
+import { router as cohortRouter } from './routes/cohorts.js'
 import { router as profilesRouter } from './routes/profiles.js'
 
 import './config/database.js'
