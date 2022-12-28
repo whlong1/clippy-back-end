@@ -1,37 +1,37 @@
-import { Cohort } from '../models/cohort.js'
+import { Cohort } from '../models/cohort/cohort.js'
 
 async function create(req, res) {
   // Add admin check
   try {
     const cohort = await Cohort.create(req.body)
     res.status(200).json(cohort)
-  } catch (error) {
-    console.log(error)
+  } catch (err) {
+    console.log(err)
   }
 }
 
 async function index(req, res) {
   try {
-    const cohorts = await Cohort.find({}).select('name')
-
-
+    const cohorts = await Cohort.find({})
+      .sort({ endDate: 'desc' }).select('name')
     res.status(200).json(cohorts)
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err)
   }
 }
 
-async function indexPeople(req, res) {
+async function getCohortAndPeople(req, res) {
   try {
-    const people = await Cohort.findById(req.params.cohortId)
-    res.status(200).json(people)
-  } catch (error) {
+    const cohort = await Cohort.findCohortAndPeople(req.params.cohortId)
+    res.status(200).json(cohort[0])
+  } catch (err) {
     res.status(500).json(err)
   }
 }
+
 
 export {
   index,
   create,
-  indexPeople,
+  getCohortAndPeople,
 }

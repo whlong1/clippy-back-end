@@ -12,6 +12,6 @@ const router = Router()
 
 router.get('/', cohortCtrl.index)
 router.post('/', cohortCtrl.create)
-router.get('/:cohortId/people', cohortCtrl.indexPeople)
+router.get('/:cohortId/people', cohortCtrl.getCohortAndPeople)
 
 export { router }

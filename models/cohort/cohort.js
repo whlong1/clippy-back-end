@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import * as cohortSchemaMethods from './methods.js'
 
 const cohortSchema = new mongoose.Schema({
   name: {
@@ -25,6 +26,7 @@ const cohortSchema = new mongoose.Schema({
   timestamps: true,
 })
 
+cohortSchema.statics = cohortSchemaMethods
 const Cohort = mongoose.model('Cohort', cohortSchema)
 
 export { Cohort }
