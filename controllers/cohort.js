@@ -1,5 +1,15 @@
 import { Cohort } from '../models/cohort/cohort.js'
 
+
+const cohortCompositionStrings = [
+  "ias",
+  "tas",
+  "students",
+  "waitlist",
+  "inactive",
+  "instructors",
+]
+
 async function create(req, res) {
   // Add admin check
   try {
@@ -20,7 +30,7 @@ async function index(req, res) {
   }
 }
 
-async function getCohortAndPeople(req, res) {
+async function indexPeople(req, res) {
   try {
     const cohort = await Cohort.findCohortAndPeople(req.params.cohortId)
     res.status(200).json(cohort[0])
@@ -29,9 +39,38 @@ async function getCohortAndPeople(req, res) {
   }
 }
 
+async function addProfileToWaitlist(req, res) {
+  try {
+    const { cohortId, profileId } = req.params
+    const isProfileInCohort = await checkProfileInCohort(cohortId, profileId)
+    if (isProfileInCohort) {
+      return res.status(500).json({ msg: 'Profile already in cohort' })
+    }
+    await Cohort.updateOne({ _id: cohortId }, { $push: { waitlist: profileId } })
+    res.status(200).json({ msg: 'OK' })
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+
+// ====== HELPERS ====== 
+
+async function checkProfileInCohort(cohortId, profileId) {
+  let profileInCohort = false
+  const cohort = await Cohort.findById(cohortId)
+  cohortCompositionStrings.forEach(role => {
+    if (cohort[role].some(r => r._id.equals(profileId))) {
+      profileInCohort = true
+    }
+  })
+  return profileInCohort
+}
+
 
 export {
   index,
   create,
-  getCohortAndPeople,
+  indexPeople,
+  addProfileToWaitlist,
 }

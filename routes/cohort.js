@@ -12,6 +12,9 @@ const router = Router()
 
 router.get('/', cohortCtrl.index)
 router.post('/', cohortCtrl.create)
-router.get('/:cohortId/people', cohortCtrl.getCohortAndPeople)
+router.get('/:cohortId/people', cohortCtrl.indexPeople)
+
+
+router.post('/:cohortId/waitlist/:profileId', cohortCtrl.addProfileToWaitlist)
 
 export { router }
