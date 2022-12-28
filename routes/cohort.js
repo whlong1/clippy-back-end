@@ -10,6 +10,7 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 
+router.get('/', cohortCtrl.index)
 router.post('/', cohortCtrl.create)
 router.get('/:cohortId/people', cohortCtrl.indexPeople)
 

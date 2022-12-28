@@ -7,7 +7,7 @@ const router = Router()
 
 /*---------- Public Routes ----------*/
 
-router.get('/', checkJwt, checkAdmin, profilesCtrl.index)
+router.get('/', profilesCtrl.index)
 
 /*---------- Protected Routes ----------*/
 
