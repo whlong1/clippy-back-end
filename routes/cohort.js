@@ -15,6 +15,7 @@ router.post('/', cohortCtrl.create)
 router.get('/:cohortId/people', cohortCtrl.indexPeople)
 
 
+router.post('/:cohortId/approve/:profileId', cohortCtrl.approveProfile)
 router.post('/:cohortId/waitlist/:profileId', cohortCtrl.addProfileToWaitlist)
 
 export { router }

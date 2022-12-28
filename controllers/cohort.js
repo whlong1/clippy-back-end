@@ -46,9 +46,34 @@ async function addProfileToWaitlist(req, res) {
     if (isProfileInCohort) {
       return res.status(500).json({ msg: 'Profile already in cohort' })
     }
-    await Cohort.updateOne({ _id: cohortId }, { $push: { waitlist: profileId } })
+    await Cohort.updateOne(
+      { _id: cohortId },
+      { $push: { waitlist: profileId } },
+    )
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+async function approveProfile(req, res) {
+  try {
+    // EG: { formerRole: "waitlist", newRole: "ias" }
+    const { formerRole, newRole } = req.body
+    const { cohortId, profileId } = req.params
+    await Promise.all([
+      await Cohort.updateOne(
+        { _id: cohortId },
+        { $pull: { [formerRole]: profileId } },
+      ),
+      await Cohort.updateOne(
+        { _id: cohortId },
+        { $addToSet: { [newRole]: profileId } }
+      )
+    ])
+    res.status(200).json({ msg: 'OK' })
+  } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
@@ -72,5 +97,6 @@ export {
   index,
   create,
   indexPeople,
+  approveProfile,
   addProfileToWaitlist,
 }
