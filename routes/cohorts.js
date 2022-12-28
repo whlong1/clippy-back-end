@@ -16,6 +16,7 @@ router.get('/:cohortId/people', cohortsCtrl.indexPeople)
 
 
 router.post('/:cohortId/deny/:profileId', cohortsCtrl.denyProfile)
+router.post('/:cohortId/remove/:profileId', cohortsCtrl.removeProfile)
 router.post('/:cohortId/approve/:profileId', cohortsCtrl.approveProfile)
 router.post('/:cohortId/waitlist/:profileId', cohortsCtrl.addProfileToWaitlist)
 
