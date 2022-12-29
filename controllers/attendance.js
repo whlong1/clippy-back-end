@@ -45,12 +45,10 @@ async function getStudentAttendance(req, res) {
     const attendance = await Attendance.find(
       { cohort: cohortId },
       {
-        students: {
-          $elemMatch: { studentId: profileId }
-        },
         time: 1,
         date: 1,
         cohort: 1,
+        students: { $elemMatch: { studentId: profileId } },
       }
     )
     res.status(200).json(attendance)
@@ -71,7 +69,14 @@ async function update(req, res) {
 
 async function deleteAttendance(req, res) {
   try {
-
+    // Add admin check
+    const { attendanceId } = req.params
+    const attendance = await Attendance.findByIdAndDelete(attendanceId)
+    Cohort.updateOne(
+      { _id: attendance.cohort },
+      { $pull: { attendance: attendance._id } },
+    )
+    res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)
   }
