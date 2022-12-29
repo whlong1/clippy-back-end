@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import * as attendanceSchemaMethods from './methods.js'
 
 const studentStatusSchema = new mongoose.Schema({
   studentId: {
@@ -35,6 +36,7 @@ const attendanceSchema = new mongoose.Schema({
   timestamps: true,
 })
 
+attendanceSchema.statics = attendanceSchemaMethods
 const Attendance = mongoose.model('Attendance', attendanceSchema)
 
 export { Attendance }

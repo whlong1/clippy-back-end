@@ -1,4 +1,4 @@
-import { Attendance } from '../models/attendance.js'
+import { Attendance } from '../models/attendance/attendance.js'
 import { Cohort } from '../models/cohort/cohort.js'
 import { Profile } from '../models/profile.js'
 
@@ -16,7 +16,9 @@ async function index(req, res) {
 async function show(req, res) {
   try {
     const { attendanceId } = req.params
-    const attendance = await Attendance.findById(attendanceId)
+    // const fields = '-students.createdAt -students.updatedAt'
+    // const attendance = await Attendance.findById(attendanceId, fields)
+    const attendance = await Attendance.findByIdAndJoinProfiles(attendanceId)
     res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)

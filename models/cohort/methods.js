@@ -63,7 +63,6 @@ function findCohortAndPeople(cohortId) {
         instructors: selectedFields,
       }
     },
-    { $limit: 1 }
   ])
 }
 
