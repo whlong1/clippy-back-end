@@ -1,7 +1,5 @@
 import mongoose from 'mongoose'
 
-
-
 function findByIdAndJoinProfiles(attendanceId) {
   return this.aggregate([
     { $match: { _id: mongoose.Types.ObjectId(attendanceId) } },

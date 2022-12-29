@@ -45,8 +45,8 @@ async function update(req, res) {
 
 async function indexPeople(req, res) {
   try {
-    const cohort = await Cohort.findCohortAndPeople(req.params.cohortId)
-    res.status(200).json(cohort[0])
+    const [cohort] = await Cohort.findCohortAndPeople(req.params.cohortId)
+    res.status(200).json(cohort)
   } catch (err) {
     res.status(500).json(err)
   }
