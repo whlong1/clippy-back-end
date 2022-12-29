@@ -10,4 +10,6 @@ const router = Router()
 router.get('/:cohortId', attendanceCtrl.index)
 router.post('/:cohortId', attendanceCtrl.create)
 
+router.get('/:cohortId/:profileId', attendanceCtrl.getStudentAttendance)
+
 export { router }
