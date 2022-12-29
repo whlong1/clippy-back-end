@@ -31,11 +31,15 @@ async function index(req, res) {
 }
 
 async function update(req, res) {
+  // Add admin check
+  // When do we need to update a cohort?
+  // What properties do we need in response?
   try {
-    // const cohort = await Cohort.create(req.body)
-    // res.status(200).json(cohort)
+    const { cohortId } = req.params
+    const cohort = await Cohort.findByIdAndUpdate(cohortId, req.body)
+    res.status(200).json(cohort)
   } catch (err) {
-    console.log(err)
+    res.status(500).json(err)
   }
 }
 
@@ -52,13 +56,16 @@ async function addProfileToWaitlist(req, res) {
   try {
     const { cohortId, profileId } = req.params
     const isProfileInCohort = await checkProfileInCohort(cohortId, profileId)
+
     if (isProfileInCohort) {
       return res.status(500).json({ msg: 'Profile already in cohort' })
     }
+
     await Cohort.updateOne(
       { _id: cohortId },
       { $push: { waitlist: profileId } },
     )
+
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
     res.status(500).json(err)
@@ -123,7 +130,7 @@ async function removeProfile(req, res) {
 
 async function changeRole(req, res) {
   try {
-    // role: { type: Number, required: true, default: 100 }
+    // EG: { newGroup: "ias", oldGroup: "tas", newRole: 900 }
     const { cohortId, profileId } = req.params
     const { newGroup, oldGroup, newRole } = req.body
     await Promise.all([
@@ -142,10 +149,13 @@ async function changeRole(req, res) {
     ])
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
 
+// Look into findProfileCohortsRelationships & scrub helper functions
+// Might want to find current role of a profile, and use that in place of oldGroup
 
 // ====== HELPERS ====== 
 
@@ -164,6 +174,7 @@ async function checkProfileInCohort(cohortId, profileId) {
 export {
   index,
   create,
+  update,
   changeRole,
   indexPeople,
   denyProfile,
