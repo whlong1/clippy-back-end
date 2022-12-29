@@ -26,14 +26,11 @@ async function show(req, res) {
 async function create(req, res) {
   try {
     // Add admin check
-    req.body.cohort = req.params.cohortId
     const attendance = await Attendance.create(req.body)
-
     await Cohort.updateOne(
-      { _id: req.params.cohortId },
+      { _id: req.body.cohort },
       { $addToSet: { attendance: attendance._id } }
     )
-
     res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)

@@ -8,7 +8,7 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.get('/', attendanceCtrl.index)
-router.post('/:cohortId', attendanceCtrl.create)
+router.post('/', attendanceCtrl.create)
 
 router.get('/:attendanceId', attendanceCtrl.show)
 
