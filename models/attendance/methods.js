@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 
+
 function findByIdAndJoinProfiles(attendanceId) {
   return this.aggregate([
     { $match: { _id: mongoose.Types.ObjectId(attendanceId) } },
@@ -16,19 +17,27 @@ function findByIdAndJoinProfiles(attendanceId) {
     {
       $group: {
         _id: "$_id",
+        time: { $first: "$time" },
         date: { $first: "$date" },
+        notes: { $first: "$notes" },
+        cohort: { $first: "$cohort" },
+        takenBy: { $first: "$takenBy" },
         students: {
           $push: {
             _id: "$students._id",
-            firstName: { $first: "$students.profile.firstName" },
+            status: "$students.status",
+            studentId: "$students.studentId",
+            photo: { $first: "$students.profile.photo" },
             lastName: { $first: "$students.profile.lastName" },
+            firstName: { $first: "$students.profile.firstName" },
+            normalizedName: { $first: "$students.profile.normalizedName" },
           },
         },
-      }
+      },
     },
+    { $sort: { "students.normalizedName": 1 } }
   ])
 }
-
 
 export {
   findByIdAndJoinProfiles
