@@ -16,8 +16,6 @@ async function index(req, res) {
 async function show(req, res) {
   try {
     const { attendanceId } = req.params
-    // const fields = '-students.createdAt -students.updatedAt'
-    // const attendance = await Attendance.findById(attendanceId, fields)
     const attendance = await Attendance.findByIdAndJoinProfiles(attendanceId)
     res.status(200).json(attendance)
   } catch (err) {
@@ -42,6 +40,7 @@ async function create(req, res) {
 async function getStudentAttendance(req, res) {
   try {
     // Check for match between requester and params
+    // Do we need to sort these in any particular way?
     const { cohortId, profileId } = req.params
     const attendance = await Attendance.find(
       { cohort: cohortId },
@@ -65,9 +64,6 @@ async function update(req, res) {
     // find attendance, 
     // update all properties of attendance.
     // update embedded students resource.
-
-
-
   } catch (err) {
     res.status(500).json(err)
   }
@@ -80,8 +76,6 @@ async function deleteAttendance(req, res) {
     res.status(500).json(err)
   }
 }
-
-
 
 
 export {
