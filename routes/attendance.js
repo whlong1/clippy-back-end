@@ -7,8 +7,10 @@ const router = Router()
 
 
 /*---------- Protected Routes ----------*/
-router.get('/:cohortId', attendanceCtrl.index)
+router.get('/', attendanceCtrl.index)
 router.post('/:cohortId', attendanceCtrl.create)
+
+router.get('/:attendanceId', attendanceCtrl.show)
 
 router.patch('/:attendanceId', attendanceCtrl.update)
 router.delete('/:attendanceId', attendanceCtrl.deleteAttendance)

@@ -5,9 +5,19 @@ import { Profile } from '../models/profile.js'
 async function index(req, res) {
   try {
     const fields = 'date time'
-    const filter = { cohort: req.params.cohortId }
+    const filter = { cohort: req.query.cohortId }
     const cohortAttendance = await Attendance.find(filter, fields)
     res.status(200).json(cohortAttendance)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+async function show(req, res) {
+  try {
+    const { attendanceId } = req.params
+    const attendance = await Attendance.findById(attendanceId)
+    res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)
   }
@@ -76,6 +86,7 @@ async function deleteAttendance(req, res) {
 
 
 export {
+  show,
   index,
   create,
   update,
