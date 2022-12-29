@@ -4,8 +4,9 @@ import { Profile } from '../models/profile.js'
 
 async function index(req, res) {
   try {
-    const { cohortId } = req.params
-    const cohortAttendance = await Attendance.find({ cohort: cohortId })
+    const fields = 'date time'
+    const filter = { cohort: req.params.cohortId }
+    const cohortAttendance = await Attendance.find(filter, fields)
     res.status(200).json(cohortAttendance)
   } catch (err) {
     res.status(500).json(err)
@@ -52,6 +53,11 @@ async function getStudentAttendance(req, res) {
 
 async function update(req, res) {
   try {
+    // find attendance, 
+    // update all properties of attendance.
+    // update embedded students resource.
+
+
 
   } catch (err) {
     res.status(500).json(err)
@@ -72,7 +78,7 @@ async function deleteAttendance(req, res) {
 export {
   index,
   create,
-  update, 
+  update,
   deleteAttendance,
   getStudentAttendance,
 }
