@@ -7,6 +7,7 @@ const router = Router()
 
 
 /*---------- Protected Routes ----------*/
-// router.get('/:cohortId', attendanceCtrl.index)
+router.get('/:cohortId', attendanceCtrl.index)
+
 
 export { router }
