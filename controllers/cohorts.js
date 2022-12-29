@@ -1,4 +1,5 @@
 import { Cohort } from '../models/cohort/cohort.js'
+import { Profile } from '../models/profile.js'
 
 const cohortCompositionStrings = [
   "ias",
@@ -26,6 +27,15 @@ async function index(req, res) {
     res.status(200).json(cohorts)
   } catch (err) {
     res.status(500).json(err)
+  }
+}
+
+async function update(req, res) {
+  try {
+    // const cohort = await Cohort.create(req.body)
+    // res.status(200).json(cohort)
+  } catch (err) {
+    console.log(err)
   }
 }
 
@@ -58,6 +68,7 @@ async function addProfileToWaitlist(req, res) {
 async function approveProfile(req, res) {
   try {
     // EG: { formerRole: "waitlist", newRole: "ias" }
+    // Can be used to reinstate student as well. 
     const { formerRole, newRole } = req.body
     const { cohortId, profileId } = req.params
     await Promise.all([
@@ -110,6 +121,31 @@ async function removeProfile(req, res) {
   }
 }
 
+async function changeRole(req, res) {
+  try {
+    // role: { type: Number, required: true, default: 100 }
+    const { cohortId, profileId } = req.params
+    const { newGroup, oldGroup, newRole } = req.body
+    await Promise.all([
+      Profile.updateOne(
+        { _id: profileId },
+        { role: newRole }
+      ),
+      Cohort.updateOne(
+        { _id: cohortId },
+        { $pull: { [oldGroup]: profileId } },
+      ),
+      Cohort.updateOne(
+        { _id: cohortId },
+        { $addToSet: { [newGroup]: profileId } }
+      )
+    ])
+    res.status(200).json({ msg: 'OK' })
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
 
 // ====== HELPERS ====== 
 
@@ -128,6 +164,7 @@ async function checkProfileInCohort(cohortId, profileId) {
 export {
   index,
   create,
+  changeRole,
   indexPeople,
   denyProfile,
   removeProfile,
