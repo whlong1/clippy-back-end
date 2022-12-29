@@ -29,6 +29,7 @@ function findByIdAndJoinProfiles(attendanceId) {
             lastName: { $first: "$students.profile.lastName" },
             firstName: { $first: "$students.profile.firstName" },
             normalizedName: { $first: "$students.profile.normalizedName" },
+            // Additional fields from the profile can be specified here.
           },
         },
       },

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
-function findCohortAndPeople(cohortId) {
+function findCohortProfiles(cohortId) {
+  // Additional fields from profile can be specified here
   const selectedFields = { _id: 1, name: 1, email: 1 }
   return this.aggregate([
     { $match: { _id: mongoose.Types.ObjectId(cohortId) } },
@@ -67,6 +68,6 @@ function findCohortAndPeople(cohortId) {
 }
 
 export {
-  findCohortAndPeople
+  findCohortProfiles
 }
 

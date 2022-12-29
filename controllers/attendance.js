@@ -1,6 +1,5 @@
 import { Attendance } from '../models/attendance/attendance.js'
 import { Cohort } from '../models/cohort/cohort.js'
-import { Profile } from '../models/profile.js'
 
 async function index(req, res) {
   try {
