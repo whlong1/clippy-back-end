@@ -11,7 +11,7 @@ router.get('/', attendanceCtrl.index)
 router.post('/', attendanceCtrl.create)
 
 router.get('/:attendanceId', attendanceCtrl.show)
-router.patch('/:attendanceId', attendanceCtrl.update)
+router.put('/:attendanceId', attendanceCtrl.update)
 router.delete('/:attendanceId', attendanceCtrl.deleteAttendance)
 
 router.get('/:cohortId/:profileId', attendanceCtrl.getStudentAttendance)

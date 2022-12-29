@@ -59,9 +59,12 @@ async function getStudentAttendance(req, res) {
 
 async function update(req, res) {
   try {
-    // find attendance, 
-    // update all properties of attendance.
-    // update embedded students resource.
+    // Add admin check
+    const { attendanceId } = req.params
+    const attendance = await Attendance.findById(attendanceId)
+    for (const key in req.body) attendance[key] = req.body[key]
+    await attendance.save()
+    res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)
   }
@@ -72,10 +75,12 @@ async function deleteAttendance(req, res) {
     // Add admin check
     const { attendanceId } = req.params
     const attendance = await Attendance.findByIdAndDelete(attendanceId)
-    Cohort.updateOne(
+
+    await Cohort.updateOne(
       { _id: attendance.cohort },
       { $pull: { attendance: attendance._id } },
     )
+
     res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)
