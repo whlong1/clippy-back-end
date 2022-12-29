@@ -50,11 +50,29 @@ async function getStudentAttendance(req, res) {
   }
 }
 
+async function update(req, res) {
+  try {
+
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+async function deleteAttendance(req, res) {
+  try {
+
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
 
 
 
 export {
   index,
   create,
+  update, 
+  deleteAttendance,
   getStudentAttendance,
 }
