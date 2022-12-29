@@ -12,7 +12,12 @@ async function index(req, res) {
   }
 }
 
+async function create(req, res) {
+
+}
+
 
 export {
   index,
+  create,
 }

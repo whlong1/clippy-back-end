@@ -8,6 +8,6 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.get('/:cohortId', attendanceCtrl.index)
-
+router.post('/:cohortId', attendanceCtrl.create)
 
 export { router }
