@@ -103,7 +103,7 @@ async function submitStudentDeliverable(req, res) {
 }
 
 // Instructor View for single Deliverable
-async function showDeliverable(req, res) {
+async function show(req, res) {
   try {
     const { deliverableId } = req.params
     const deliverable = await Deliverable.findByIdAndJoinStudents(deliverableId)
@@ -131,7 +131,7 @@ async function showStudentDeliverable(req, res) {
 export {
   index,
   create,
-  showDeliverable,
+  show,
   showStudentDeliverable,
   gradeStudentDeliverable,
   submitStudentDeliverable,

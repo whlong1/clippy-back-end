@@ -12,8 +12,7 @@ const router = Router()
 
 router.get('/', deliverablesCtrl.index)
 router.post('/', deliverablesCtrl.create)
-router.get('/:deliverableId', deliverablesCtrl.showDeliverable)
-
+router.get('/:deliverableId', deliverablesCtrl.show)
 
 router.get('/:sdId/view', deliverablesCtrl.showStudentDeliverable)
 router.patch('/:sdId/grade', deliverablesCtrl.gradeStudentDeliverable)
