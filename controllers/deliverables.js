@@ -64,11 +64,6 @@ async function index(req, res) {
   }
 }
 
-// A student's profile saves a reference to studentDeliverable
-// A studentDeliverable saves a reference to that profile and parent deliverable
-// When we grade, we submit an update to the studentDeliverable.
-// We just need to return the updated sD as a response, add that to state for a parent deliverable
-
 async function grade(req, res) {
   // Admin check
   try {
@@ -82,10 +77,25 @@ async function grade(req, res) {
   }
 }
 
+async function submit(req, res) {
+
+  try {
+    const { sdId } = req.params
+    const studentDeliverable = await StudentDeliverable.findByIdAndUpdate(
+      sdId, req.body, { new: true }
+    )
+    res.status(200).json(studentDeliverable)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+
 
 export {
   index,
   grade,
   create,
+  submit,
 }
 
