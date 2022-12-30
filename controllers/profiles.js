@@ -56,8 +56,9 @@ async function getMyAttendance(req, res) {
 
 async function getMyDeliverables(req, res) {
   try {
-
-
+    const { profileId } = req.params
+    const profile = await Profile.findByIdAndJoinDeliverables(profileId)
+    res.status(200).json(profile)
   } catch (error) {
     res.status(500).json(err)
   }
