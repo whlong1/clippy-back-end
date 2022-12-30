@@ -37,9 +37,6 @@ function findByIdAndJoinProfileAndDeliverable(sdId) {
   ])
 }
 
-// findByIdAndJoinProfileAndDeliverable
-
-
 export {
   findByIdAndJoinProfileAndDeliverable,
 }

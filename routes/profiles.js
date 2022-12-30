@@ -7,8 +7,12 @@ const router = Router()
 
 /*---------- Public Routes ----------*/
 
-router.get('/', profilesCtrl.index)
 
 /*---------- Protected Routes ----------*/
+
+router.get('/', profilesCtrl.index)
+
+router.get('/:profileId/deliverables', profilesCtrl.getMyDeliverables)
+
 
 export { router }

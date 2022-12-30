@@ -19,6 +19,4 @@ router.patch('/:sdId/grade', deliverablesCtrl.gradeStudentDeliverable)
 router.patch('/:sdId/submit', deliverablesCtrl.submitStudentDeliverable)
 
 
-
-
 export { router }

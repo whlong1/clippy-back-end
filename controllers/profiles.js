@@ -9,4 +9,17 @@ async function index(req, res) {
   }
 }
 
-export { index }
+
+async function getMyDeliverables(req, res) {
+  try {
+
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export {
+  index,
+  getMyDeliverables,
+}
