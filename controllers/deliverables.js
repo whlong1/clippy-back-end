@@ -1,6 +1,6 @@
 import { Profile } from '../models/profile.js'
 import { Cohort } from '../models/cohort/cohort.js'
-import { Deliverable } from '../models/deliverable.js'
+import { Deliverable } from '../models/deliverable/deliverable.js'
 import { StudentDeliverable } from '../models/studentDeliverable.js'
 
 // student profiles save a reference to studentDeliverable

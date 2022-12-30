@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import * as deliverableSchemaMethods from './methods.js'
 
 const deliverableSchema = new mongoose.Schema({
   cohort: {
@@ -42,6 +43,7 @@ const deliverableSchema = new mongoose.Schema({
   timestamps: true,
 })
 
+deliverableSchema.statics = deliverableSchemaMethods
 const Deliverable = mongoose.model('Deliverable', deliverableSchema)
 
 export { Deliverable }
