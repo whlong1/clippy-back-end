@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
-function findByIdAndJoinStudentName(sdId) {
+// Finds a studentDeliverable by _id. Joins a student's Profile. Joins parent Deliverable.
+function findByIdAndJoinProfileAndDeliverable(sdId) {
   return this.aggregate([
     { $match: { _id: mongoose.Types.ObjectId(sdId) } },
     { $lookup: { from: 'profiles', localField: 'profile', foreignField: '_id', as: 'profile' } },
@@ -36,7 +37,9 @@ function findByIdAndJoinStudentName(sdId) {
   ])
 }
 
+// findByIdAndJoinProfileAndDeliverable
+
 
 export {
-  findByIdAndJoinStudentName,
+  findByIdAndJoinProfileAndDeliverable,
 }

@@ -102,7 +102,7 @@ async function submitStudentDeliverable(req, res) {
   }
 }
 
-// Instructor View for single Deliverable
+// Instructor View for Deliverable
 async function show(req, res) {
   try {
     const { deliverableId } = req.params
@@ -114,19 +114,17 @@ async function show(req, res) {
   }
 }
 
-// Instructor View for single Student Deliverable
+// Instructor View for Student Deliverable
 async function showStudentDeliverable(req, res) {
   try {
     const { sdId } = req.params
-    const [studentDeliverable] = await StudentDeliverable.findByIdAndJoinStudentName(sdId)
+    const [studentDeliverable] = await StudentDeliverable.findByIdAndJoinProfileAndDeliverable(sdId)
     res.status(200).json(studentDeliverable)
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
   }
 }
-
-
 
 
 export {
