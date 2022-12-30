@@ -70,8 +70,12 @@ async function index(req, res) {
 // We just need to return the updated sD as a response, add that to state for a parent deliverable
 
 async function grade(req, res) {
+  // Admin check
   try {
-
+    const { sdId } = req.params
+    const studentDeliverable = await StudentDeliverable.findByIdAndUpdate(
+      sdId, req.body, { new: true }
+    )
     res.status(200).json(studentDeliverable)
   } catch (err) {
     res.status(500).json(err)
