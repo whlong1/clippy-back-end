@@ -13,8 +13,8 @@ async function create(req, res) {
       if (key.startsWith('has')) req.body[key] = !!req.body[key]
     }
 
-    // Method returns students, inactive, and deliverables from cohort document
-    const [cohort] = await Cohort.getDeliverablesAndJoinStudents(req.body.cohort)
+    // Method returns students and inactive from cohort document
+    const [cohort] = await Cohort.joinStudentProfiles(req.body.cohort)
     const deliverable = await Deliverable.create(req.body)
 
     // If we need to sort by normalizedName, do so here:

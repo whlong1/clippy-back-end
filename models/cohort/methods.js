@@ -67,7 +67,7 @@ function joinAllProfiles(cohortId) {
   ])
 }
 
-function getDeliverablesAndJoinStudents(cohortId) {
+function joinStudentProfiles(cohortId) {
   // Additional fields from profile can be specified here
   const selectedFields = { _id: 1, normalizedName: 1 }
   return this.aggregate([
@@ -91,7 +91,6 @@ function getDeliverablesAndJoinStudents(cohortId) {
     {
       $project: {
         _id: 1,
-        deliverables: 1,
         students: selectedFields,
         inactive: selectedFields,
       }
@@ -101,6 +100,6 @@ function getDeliverablesAndJoinStudents(cohortId) {
 
 export {
   joinAllProfiles,
-  getDeliverablesAndJoinStudents
+  joinStudentProfiles,
 }
 
