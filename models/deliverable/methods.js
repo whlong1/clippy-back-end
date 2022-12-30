@@ -35,7 +35,7 @@ function findByIdAndJoinStudents(deliverableId) {
           $push: {
             _id: "$students._id",
             status: "$students.status",
-            photo: { $first: "$students.profile.photo" },
+            profileId: { $first: "$students.profile._id" },
             lastName: { $first: "$students.profile.lastName" },
             firstName: { $first: "$students.profile.firstName" },
             normalizedName: { $first: "$students.profile.normalizedName" },
