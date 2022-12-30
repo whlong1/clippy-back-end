@@ -69,7 +69,7 @@ function joinAllProfiles(cohortId) {
 
 function getDeliverablesAndJoinStudents(cohortId) {
   // Additional fields from profile can be specified here
-  const selectedFields = { _id: 1, normalizedName: 1, deliverables: 1 }
+  const selectedFields = { _id: 1, normalizedName: 1 }
   return this.aggregate([
     { $match: { _id: mongoose.Types.ObjectId(cohortId) } },
     {

@@ -13,40 +13,45 @@ async function create(req, res) {
       if (key.startsWith('has')) req.body[key] = !!req.body[key]
     }
 
-    // Find cohort by req.body.cohort
-    // What we need here is the students, inactive and deliverables
-    // Consider a method.
+    // Method returns students, inactive, and deliverables from cohort document
     const [cohort] = await Cohort.getDeliverablesAndJoinStudents(req.body.cohort)
-    console.log(cohort)
+    const deliverable = await Deliverable.create(req.body)
 
+    // If we need to sort by normalizedName, do so here:
+    const mergedStudents = [...cohort.students, ...cohort.inactive]
 
-    // create new deliverable instance
-    // Deliverable.create(req.body)
+    // Create an array of studentDeliverable form data for 
+    // each person in cohort.students and cohort.inactive:
+    const sdFormDataArray = mergedStudents.map((student) => {
+      return {
+        profile: student._id,
+        deliverable: deliverable._id,
+        status: student.isWithdrawn ? 'missing' : 'assigned'
+      }
+    })
 
+    // Insert many studentDeliverable documents into collection (returns an array)
+    const studentDeliverables = await StudentDeliverable.insertMany(sdFormDataArray)
 
-    // studentDeliverable instances are created for 
-    // everyone in cohort.students and everyone in cohort.inactive
+    // Store studentDeliverable _id in Deliverable and each student's Profile
+    for (const sdInstance of studentDeliverables) {
+      deliverable.students.push(sdInstance._id)
+      await Profile.updateOne(
+        { _id: sdInstance.profile },
+        { $addToSet: { deliverables: sdInstance._id } }
+      )
+    }
 
-    // const sdInstance = {
-    //   profile: profile._id,
-    //   deliverable: deliverable._id,
-    //   status: student.isWithdrawn ? 'missing' : 'assigned'
-    // }
+    // Add new deliverable to cohort and save deliverable
+    await Promise.all([
+      deliverable.save(),
+      Cohort.updateOne(
+        { _id: req.body.cohort },
+        { $addToSet: { deliverables: deliverable._id } }
+      ),
+    ])
 
-    // await StudentDeliverable.insertMany()
-
-    // Store studentDeliverable in Profile and Deliverable
-    // • push newly created studentDeliverable._id into deliverable.students
-    // • find each profile, push correct studentDeliverable to profile.deliverables
-
-    // save deliverable
-    // save profile
-
-    // push new deliverable instance to cohort.deliverables array
-    // save cohort
-
-    // return new deliverable
-    res.status(200).json(cohort)
+    res.status(200).json(deliverable)
   } catch (err) {
     res.status(500).json(err)
   }
