@@ -14,8 +14,13 @@ function findByCohortAndJoinStatus(cohortId) {
   ])
 }
 
-
+function findByIdAndJoinStudents(deliverableId) {
+  return this.aggregate([
+    { $match: { _id: mongoose.Types.ObjectId(deliverableId) } },
+  ])
+}
 
 export {
-  findByCohortAndJoinStatus
+  findByIdAndJoinStudents,
+  findByCohortAndJoinStatus,
 }
