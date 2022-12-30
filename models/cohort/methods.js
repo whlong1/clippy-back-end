@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-function findCohortProfiles(cohortId) {
+function joinAllProfiles(cohortId) {
   // Additional fields from profile can be specified here
   const selectedFields = { _id: 1, name: 1, email: 1 }
   return this.aggregate([
@@ -67,7 +67,40 @@ function findCohortProfiles(cohortId) {
   ])
 }
 
+function getDeliverablesAndJoinStudents(cohortId) {
+  // Additional fields from profile can be specified here
+  const selectedFields = { _id: 1, normalizedName: 1, deliverables: 1 }
+  return this.aggregate([
+    { $match: { _id: mongoose.Types.ObjectId(cohortId) } },
+    {
+      $lookup: {
+        from: 'profiles',
+        localField: 'students',
+        foreignField: '_id',
+        as: 'students'
+      }
+    },
+    {
+      $lookup: {
+        from: 'profiles',
+        localField: 'inactive',
+        foreignField: '_id',
+        as: 'inactive'
+      }
+    },
+    {
+      $project: {
+        _id: 1,
+        deliverables: 1,
+        students: selectedFields,
+        inactive: selectedFields,
+      }
+    },
+  ])
+}
+
 export {
-  findCohortProfiles
+  joinAllProfiles,
+  getDeliverablesAndJoinStudents
 }
 
