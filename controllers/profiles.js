@@ -35,6 +35,8 @@ async function getAllMyAttendance(req, res) {
     // Do we need to sort these in any particular way?
     // Double check how this functions for returning students.
 
+    // Add check for no attendance - return msg?
+
     const { cohortId } = req.query
     const { profileId } = req.params
     const attendance = await Attendance.find(
@@ -47,7 +49,6 @@ async function getAllMyAttendance(req, res) {
       }
     )
     res.status(200).json(attendance)
-
   } catch (err) {
     res.status(500).json(err)
   }

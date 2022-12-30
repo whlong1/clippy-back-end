@@ -36,29 +36,6 @@ async function create(req, res) {
   }
 }
 
-// ============
-async function getStudentAttendance(req, res) {
-  try {
-    // Check for match between requester and params
-    // Do we need to sort these in any particular way?
-    // Double check how this functions for returning students.
-    const { cohortId, profileId } = req.params
-    const attendance = await Attendance.find(
-      { cohort: cohortId },
-      {
-        time: 1,
-        date: 1,
-        cohort: 1,
-        students: { $elemMatch: { studentId: profileId } },
-      }
-    )
-    res.status(200).json(attendance)
-  } catch (err) {
-    res.status(500).json(err)
-  }
-}
-// ============
-
 async function update(req, res) {
   try {
     // Add admin check
@@ -96,5 +73,4 @@ export {
   create,
   update,
   deleteAttendance,
-  getStudentAttendance,
 }
