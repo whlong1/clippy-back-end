@@ -118,8 +118,7 @@ async function show(req, res) {
 async function showStudentDeliverable(req, res) {
   try {
     const { sdId } = req.params
-    const studentDeliverable = await StudentDeliverable.findById(sdId)
-    .populate('profile', 'firstName lastName')
+    const [studentDeliverable] = await StudentDeliverable.findByIdAndJoinStudentName(sdId)
     res.status(200).json(studentDeliverable)
   } catch (err) {
     console.log(err)
