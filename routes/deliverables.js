@@ -10,6 +10,7 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 
+router.get('/', deliverablesCtrl.index)
 router.post('/', deliverablesCtrl.create)
 
 
