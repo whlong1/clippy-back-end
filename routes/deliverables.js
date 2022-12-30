@@ -12,6 +12,7 @@ const router = Router()
 
 router.get('/', deliverablesCtrl.index)
 router.post('/', deliverablesCtrl.create)
+router.get('/:deliverableId', deliverablesCtrl.show)
 router.patch('/:sdId/grade', deliverablesCtrl.grade)
 router.patch('/:sdId/submit', deliverablesCtrl.submit)
 

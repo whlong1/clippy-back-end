@@ -103,10 +103,28 @@ async function submit(req, res) {
   }
 }
 
+async function show(req, res) {
+  try {
+
+
+
+    res.status(200).json(deliverable)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+ }
+
+
+// show functionality
+// delete
+// do we need distinct show functions?
+// 
 
 
 export {
   index,
+  show,
   grade,
   create,
   submit,
