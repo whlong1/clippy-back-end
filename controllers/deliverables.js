@@ -117,7 +117,9 @@ async function show(req, res) {
 // Instructor View for single Student Deliverable
 async function showStudentDeliverable(req, res) {
   try {
-    const { studentDeliverableId } = req.params
+    const { sdId } = req.params
+    const studentDeliverable = await StudentDeliverable.findById(sdId)
+    .populate('profile', 'firstName lastName')
     res.status(200).json(studentDeliverable)
   } catch (err) {
     console.log(err)
