@@ -125,26 +125,6 @@ async function showStudentDeliverable(req, res) {
   }
 }
 
-// Index deliverables for student view
-// A student's profile has a deliverables array (references studentDeliverables)
-// Something like get deliverables by profileId
-
-// getStudentDeliverablesByProfile
-// Profiles could have a getMyAttendance, getMyDeliverables
-
-// Get student attendance doesn't make sense for this routing pattern anyway
-// router.get('/:cohortId/:profileId', attendanceCtrl.getStudentAttendance)
-
-async function getStudentDeliverablesByProfile(req, res) {
-  try {
-
-
-  } catch (err) {
-    res.status(500).json(err)
-  }
-}
-
-
 
 export {
   index,

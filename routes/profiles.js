@@ -11,7 +11,6 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 
 router.get('/', profilesCtrl.index)
-
 router.get('/:profileId/attendance', profilesCtrl.getMyAttendance)
 router.get('/:profileId/deliverables', profilesCtrl.getMyDeliverables)
 

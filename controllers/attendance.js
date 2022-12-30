@@ -36,6 +36,7 @@ async function create(req, res) {
   }
 }
 
+// ============
 async function getStudentAttendance(req, res) {
   try {
     // Check for match between requester and params
@@ -56,6 +57,7 @@ async function getStudentAttendance(req, res) {
     res.status(500).json(err)
   }
 }
+// ============
 
 async function update(req, res) {
   try {
