@@ -77,15 +77,28 @@ async function grade(req, res) {
   }
 }
 
+// How does hasNewStatus factor in here?
+// Do we want any validation on submitted links here?
+// Can the response be an 'OK' msg or simply the status?
+// Shouldn't the status always switch to pendingAudit on submit?
 async function submit(req, res) {
-
   try {
     const { sdId } = req.params
+
+    req.body.status = req.body.status === 'assigned'
+      ? 'pendingAudit'
+      : req.body.status
+
+    // Refactor for auth0:
+    // if (req.body.profile === req.user.profile) { }
+
     const studentDeliverable = await StudentDeliverable.findByIdAndUpdate(
       sdId, req.body, { new: true }
     )
+
     res.status(200).json(studentDeliverable)
   } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
