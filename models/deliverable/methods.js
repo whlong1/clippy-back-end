@@ -39,6 +39,7 @@ function findByIdAndJoinStudents(deliverableId) {
             lastName: { $first: "$students.profile.lastName" },
             firstName: { $first: "$students.profile.firstName" },
             normalizedName: { $first: "$students.profile.normalizedName" },
+            gitHubUserName: { $first: "$students.profile.gitHubUserName" },
             // Additional fields from the profile can be specified here.
           },
         },
