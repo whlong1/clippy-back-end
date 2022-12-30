@@ -40,6 +40,7 @@ async function getStudentAttendance(req, res) {
   try {
     // Check for match between requester and params
     // Do we need to sort these in any particular way?
+    // Double check how this functions for returning students.
     const { cohortId, profileId } = req.params
     const attendance = await Attendance.find(
       { cohort: cohortId },
