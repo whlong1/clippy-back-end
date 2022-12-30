@@ -12,7 +12,6 @@ const router = Router()
 
 router.get('/', deliverablesCtrl.index)
 router.post('/', deliverablesCtrl.create)
-
-
+router.patch('/:sdId/grade', deliverablesCtrl.grade)
 
 export { router }

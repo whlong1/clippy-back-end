@@ -3,9 +3,6 @@ import { Cohort } from '../models/cohort/cohort.js'
 import { Deliverable } from '../models/deliverable/deliverable.js'
 import { StudentDeliverable } from '../models/studentDeliverable.js'
 
-// student profiles save a reference to studentDeliverable
-// studentDeliverable saves a reference to that profile and parent deliverable
-
 async function create(req, res) {
   try {
     // Toggle 'hasBlank' values to booleans
@@ -67,8 +64,24 @@ async function index(req, res) {
   }
 }
 
+// A student's profile saves a reference to studentDeliverable
+// A studentDeliverable saves a reference to that profile and parent deliverable
+// When we grade, we submit an update to the studentDeliverable.
+// We just need to return the updated sD as a response, add that to state for a parent deliverable
+
+async function grade(req, res) {
+  try {
+
+    res.status(200).json(studentDeliverable)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+
 export {
   index,
+  grade,
   create,
 }
 
