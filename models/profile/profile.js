@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import * as profileSchemaMethods from './methods.js'
 
 const profileSchema = new mongoose.Schema({
   name: String,
@@ -45,12 +46,12 @@ const profileSchema = new mongoose.Schema({
     default: 100
   },
   deliverables: [{ type: mongoose.Types.ObjectId, ref: 'StudentDeliverable' }],
-
-
 }, {
   timestamps: true,
 })
 
+
+profileSchema.statics = profileSchemaMethods
 const Profile = mongoose.model('Profile', profileSchema)
 
 export { Profile }

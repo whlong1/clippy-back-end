@@ -1,5 +1,5 @@
 import { Cohort } from '../models/cohort/cohort.js'
-import { Profile } from '../models/profile.js'
+import { Profile } from '../models/profile/profile.js'
 
 const cohortCompositionStrings = [
   "ias",

@@ -1,4 +1,4 @@
-import { Profile } from '../models/profile.js'
+import { Profile } from '../models/profile/profile.js'
 // import { getAccessToken, getRoles } from '../helpers/auth0.js'
 
 async function getUserDataFromToken(req, res) {
