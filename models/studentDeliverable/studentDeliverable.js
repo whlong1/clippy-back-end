@@ -1,5 +1,7 @@
 import mongoose from 'mongoose'
 
+import * as studentDeliverableSchemaMethods from './methods.js'
+
 const studentDeliverableSchema = new mongoose.Schema({
   profile: {
     type: mongoose.Types.ObjectId, ref: 'Profile',
@@ -45,6 +47,7 @@ const studentDeliverableSchema = new mongoose.Schema({
   timestamps: true
 })
 
+studentDeliverableSchema.statics = studentDeliverableSchemaMethods
 const StudentDeliverable = mongoose.model('StudentDeliverable', studentDeliverableSchema)
 
 export { StudentDeliverable }
