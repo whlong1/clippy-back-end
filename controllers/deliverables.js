@@ -59,12 +59,16 @@ async function create(req, res) {
 
 async function index(req, res) {
   try {
-    res.status(200).json({ msg: 'OK' })
+    const fields = 'name dueDate students'
+    const filter = { cohort: req.query.cohortId }
+    const deliverables = await Deliverable.find(filter, fields)
+      .populate('students', 'status')
+
+    res.status(200).json(deliverables)
   } catch (err) {
     res.status(500).json(err)
   }
 }
-
 
 export {
   index,
