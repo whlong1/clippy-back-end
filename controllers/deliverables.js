@@ -98,28 +98,23 @@ async function submit(req, res) {
 
     res.status(200).json(studentDeliverable)
   } catch (err) {
-    console.log(err)
     res.status(500).json(err)
   }
 }
 
+// Instructor View for showing single Deliverable
 async function show(req, res) {
   try {
-
-
-
+    const { deliverableId } = req.params
+    const deliverable = await Deliverable.findByIdAndJoinStudents(deliverableId)
     res.status(200).json(deliverable)
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
   }
- }
+}
 
 
-// show functionality
-// delete
-// do we need distinct show functions?
-// 
 
 
 export {

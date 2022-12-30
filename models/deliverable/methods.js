@@ -17,6 +17,33 @@ function findByCohortAndJoinStatus(cohortId) {
 function findByIdAndJoinStudents(deliverableId) {
   return this.aggregate([
     { $match: { _id: mongoose.Types.ObjectId(deliverableId) } },
+    { $lookup: { from: 'studentdeliverables', localField: 'students', foreignField: '_id', as: 'students' } },
+    { $unwind: { path: "$students" } },
+    { $lookup: { from: 'profiles', localField: 'students.profile', foreignField: '_id', as: 'students.profile' } },
+    {
+      $group: {
+        _id: "$_id",
+        name: { $first: "$name" },
+        dueDate: { $first: "$dueDate" },
+        notionUrl: { $first: "$notionUrl" },
+        hasMiscUrl: { $first: "$hasMiscUrl" },
+        hasTrelloUrl: { $first: "$hasTrelloUrl" },
+        hasGitHubUrl: { $first: "$hasGitHubUrl" },
+        hasDeploymentUrl: { $first: "$hasDeploymentUrl" },
+        hasCodeSandboxUrl: { $first: "$hasCodeSandboxUrl" },
+        students: {
+          $push: {
+            _id: "$students._id",
+            status: "$students.status",
+            photo: { $first: "$students.profile.photo" },
+            lastName: { $first: "$students.profile.lastName" },
+            firstName: { $first: "$students.profile.firstName" },
+            normalizedName: { $first: "$students.profile.normalizedName" },
+            // Additional fields from the profile can be specified here.
+          },
+        },
+      },
+    },
   ])
 }
 
@@ -24,3 +51,5 @@ export {
   findByIdAndJoinStudents,
   findByCohortAndJoinStatus,
 }
+
+
