@@ -8,8 +8,8 @@ async function index(req, res) {
   try {
     const profiles = await Profile.find({})
     res.json(profiles)
-  } catch (error) {
-    console.log(error)
+  } catch (err) {
+    console.log(err)
   }
 }
 
@@ -28,7 +28,7 @@ async function index(req, res) {
 // Joins can occur through profile.
 
 
-async function getMyAttendance(req, res) {
+async function getAllMyAttendance(req, res) {
   try {
     // Refactor to extra profileId from req.auth
     // Check for match between requester and params
@@ -48,24 +48,23 @@ async function getMyAttendance(req, res) {
     )
     res.status(200).json(attendance)
 
-  } catch (error) {
+  } catch (err) {
     res.status(500).json(err)
   }
 }
 
-
-async function getMyDeliverables(req, res) {
+async function getAllMyDeliverables(req, res) {
   try {
     const { profileId } = req.params
-    const profile = await Profile.findByIdAndJoinDeliverables(profileId)
-    res.status(200).json(profile)
-  } catch (error) {
+    const [profile] = await Profile.findByIdAndJoinDeliverables(profileId)
+    res.status(200).json(profile.deliverables)
+  } catch (err) {
     res.status(500).json(err)
   }
 }
 
 export {
   index,
-  getMyAttendance,
-  getMyDeliverables,
+  getAllMyAttendance,
+  getAllMyDeliverables,
 }
