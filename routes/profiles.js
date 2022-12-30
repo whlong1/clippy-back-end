@@ -12,6 +12,7 @@ const router = Router()
 
 router.get('/', profilesCtrl.index)
 
+router.get('/:profileId/attendance', profilesCtrl.getMyAttendance)
 router.get('/:profileId/deliverables', profilesCtrl.getMyDeliverables)
 
 

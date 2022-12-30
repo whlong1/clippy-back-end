@@ -10,6 +10,17 @@ async function index(req, res) {
 }
 
 
+
+async function getMyAttendance(req, res) {
+  try {
+
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
 async function getMyDeliverables(req, res) {
   try {
 
@@ -21,5 +32,6 @@ async function getMyDeliverables(req, res) {
 
 export {
   index,
+  getMyAttendance,
   getMyDeliverables,
 }
