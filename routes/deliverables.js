@@ -12,8 +12,14 @@ const router = Router()
 
 router.get('/', deliverablesCtrl.index)
 router.post('/', deliverablesCtrl.create)
-router.get('/:deliverableId', deliverablesCtrl.show)
-router.patch('/:sdId/grade', deliverablesCtrl.grade)
-router.patch('/:sdId/submit', deliverablesCtrl.submit)
+router.get('/:deliverableId', deliverablesCtrl.showDeliverable)
+
+
+router.get('/:sdId/view', deliverablesCtrl.showStudentDeliverable)
+router.patch('/:sdId/grade', deliverablesCtrl.gradeStudentDeliverable)
+router.patch('/:sdId/submit', deliverablesCtrl.submitStudentDeliverable)
+
+
+
 
 export { router }

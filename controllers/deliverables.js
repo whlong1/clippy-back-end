@@ -64,7 +64,7 @@ async function index(req, res) {
   }
 }
 
-async function grade(req, res) {
+async function gradeStudentDeliverable(req, res) {
   // Admin check
   try {
     const { sdId } = req.params
@@ -81,7 +81,7 @@ async function grade(req, res) {
 // Do we want any validation on submitted links here?
 // Can the response be an 'OK' msg or simply the status?
 // Shouldn't the status always switch to pendingAudit on submit?
-async function submit(req, res) {
+async function submitStudentDeliverable(req, res) {
   try {
     const { sdId } = req.params
 
@@ -102,12 +102,23 @@ async function submit(req, res) {
   }
 }
 
-// Instructor View for showing single Deliverable
-async function show(req, res) {
+// Instructor View for single Deliverable
+async function showDeliverable(req, res) {
   try {
     const { deliverableId } = req.params
     const deliverable = await Deliverable.findByIdAndJoinStudents(deliverableId)
     res.status(200).json(deliverable)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+// Instructor View for single Student Deliverable
+async function showStudentDeliverable(req, res) {
+  try {
+    const { studentDeliverableId } = req.params
+    res.status(200).json(studentDeliverable)
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
@@ -119,9 +130,10 @@ async function show(req, res) {
 
 export {
   index,
-  show,
-  grade,
   create,
-  submit,
+  showDeliverable,
+  showStudentDeliverable,
+  gradeStudentDeliverable,
+  submitStudentDeliverable,
 }
 
