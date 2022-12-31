@@ -48,11 +48,6 @@ const profileSchema = new mongoose.Schema({
   codeWarsUserName: {
     type: String
   },
-  role: {
-    type: Number,
-    required: true,
-    default: 100
-  },
   deliverables: [{ type: mongoose.Types.ObjectId, ref: 'StudentDeliverable' }],
 }, {
   timestamps: true,
