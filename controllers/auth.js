@@ -9,8 +9,8 @@ async function getUserDataFromToken(req, res) {
     } else {
       throw Error('Profile not found!')
     }
-  } catch (error) {
-    res.status(500).json({ error: error.message })
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 

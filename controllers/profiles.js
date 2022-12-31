@@ -13,21 +13,6 @@ async function index(req, res) {
   }
 }
 
-// Index deliverables for student view
-// A student's profile has a deliverables array (references studentDeliverables)
-// Something like get deliverables by profileId
-
-// getStudentDeliverablesByProfile
-// Profiles could have a getMyAttendance, getMyDeliverables
-
-// Get student attendance doesn't make sense for this routing pattern anyway
-// router.get('/:cohortId/:profileId', attendanceCtrl.getStudentAttendance)
-
-
-// When a student views the list of deliverables, they need THEIR OWN studentDeliverables
-// Joins can occur through profile.
-
-
 async function getAllMyAttendance(req, res) {
   try {    
     // Add check for no attendance - return msg?
@@ -55,11 +40,16 @@ async function getAllMyAttendance(req, res) {
         students: { $elemMatch: { studentId: profileId } },
       }
     )
+    
     res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)
   }
 }
+
+// A student's profile has a deliverables array (references to studentDeliverables)
+// When a student views the list of deliverables, they need THEIR OWN studentDeliverables
+// Joins can occur through profile (more efficient, added layer of security)
 
 async function getAllMyDeliverables(req, res) {
   try {
