@@ -1,7 +1,6 @@
 import { Router } from 'express'
-import { checkAdmin, checkJwt } from '../middleware/auth.js'
+import { checkJwt } from '../middleware/auth.js'
 import * as profilesCtrl from '../controllers/profiles.js'
-
 
 const router = Router()
 
@@ -10,7 +9,7 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 
-router.get('/', profilesCtrl.getMyProfile)
+router.get('/', checkJwt, profilesCtrl.getMyProfile)
 router.get('/:profileId/attendance', profilesCtrl.getAllMyAttendance)
 router.get('/:profileId/deliverables', profilesCtrl.getAllMyDeliverables)
 
