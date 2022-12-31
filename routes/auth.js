@@ -9,6 +9,6 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 
-router.get('/tokens', checkJwt, authCtrl.getUserDataFromToken)
+router.get('/', checkJwt, authCtrl.getUserDataFromToken)
 
 export { router }
