@@ -125,11 +125,20 @@ async function showStudentDeliverable(req, res) {
   }
 }
 
+async function deleteDeliverable(req, res) {
+  try {
+
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
 
 export {
+  show,
   index,
   create,
-  show,
+  deleteDeliverable,
   showStudentDeliverable,
   gradeStudentDeliverable,
   submitStudentDeliverable,
