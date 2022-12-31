@@ -126,7 +126,20 @@ async function showStudentDeliverable(req, res) {
 }
 
 async function deleteDeliverable(req, res) {
+  // Add admin check
   try {
+    // Find cohort
+    // loop through cohort.students
+      // find profile of a student
+      // find and delete studentDeliverable based on match criteria:
+      // { profile: profile._id, deliverable: req.params.deliverableId }
+      // remove studentDeliveralbe from profile.deliverables
+      // save profile
+  
+
+    // delete parent Deliverable
+    // remove deliverable from cohort.deliverables
+    // save cohort
 
   } catch (err) {
     res.status(500).json(err)
