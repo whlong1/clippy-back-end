@@ -131,32 +131,31 @@ async function deleteDeliverable(req, res) {
   try {
     const { deliverableId } = req.params
     const [deliverable] = await Deliverable.findByIdAndJoinStudents(deliverableId)
-    console.log(deliverable)
-    // Note: deliverable.students is an array of studentDeliverables
-    // for (const studentDeliverable of deliverable.students) {
-    //   await Promise.all([
-    //     Profile.updateOne(
-    //       { _id: studentDeliverable.profileId },
-    //       { $pull: { deliverables: studentDeliverable._id } }
-    //     ),
-    //     StudentDeliverable.findByIdAndDelete(studentDeliverable._id),
-    //   ])
-    // }
 
-    // await Promise.all([
-    //   Cohort.updateOne(
-    //     { _id: deliverable.cohort },
-    //     { $pull: { deliverables: deliverableId } }
-    //   ),
-    //   Deliverable.deleteOne({ _id: deliverableId }),
-    // ])
+    // Note: deliverable.students is an array of studentDeliverables
+    for (const studentDeliverable of deliverable.students) {
+      await Promise.all([
+        Profile.updateOne(
+          { _id: studentDeliverable.profileId },
+          { $pull: { deliverables: studentDeliverable._id } }
+        ),
+        StudentDeliverable.findByIdAndDelete(studentDeliverable._id),
+      ])
+    }
+
+    await Promise.all([
+      Cohort.updateOne(
+        { _id: deliverable.cohort },
+        { $pull: { deliverables: deliverableId } }
+      ),
+      Deliverable.deleteOne({ _id: deliverableId }),
+    ])
+
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
-    console.log(err)
     res.status(500).json(err)
   }
 }
-
 
 export {
   show,
@@ -167,4 +166,3 @@ export {
   gradeStudentDeliverable,
   submitStudentDeliverable,
 }
-
