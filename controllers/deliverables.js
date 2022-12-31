@@ -128,19 +128,17 @@ async function showStudentDeliverable(req, res) {
 async function deleteDeliverable(req, res) {
   // Add admin check
   try {
-    // Find cohort
-    // loop through cohort.students
-      // find profile of a student
-      // find and delete studentDeliverable based on match criteria:
-      // { profile: profile._id, deliverable: req.params.deliverableId }
-      // remove studentDeliveralbe from profile.deliverables
-      // save profile
-  
+    // Find Deliverable
+    // loop through deliverable.students
+    // deliverable.students is an array of studentDeliverables
+    // Profile.updateOne({_id: studentDeliverable.profile}) to remove doc from profile.deliverables
+    // Find and delete StudentDeliverable doc through deliverable.students[i]._id
 
-    // delete parent Deliverable
+
+    // Find cohort through deliverable.cohort (cohortId)
     // remove deliverable from cohort.deliverables
     // save cohort
-
+    // delete Deliverable
   } catch (err) {
     res.status(500).json(err)
   }
