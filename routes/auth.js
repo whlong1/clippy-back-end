@@ -4,11 +4,8 @@ import * as authCtrl from '../controllers/auth.js'
 
 const router = Router()
 
-/*---------- Public Routes ----------*/
-
-
 /*---------- Protected Routes ----------*/
 
-router.get('/', checkJwt, authCtrl.getUserDataFromToken)
+router.get('/', checkJwt, checkAdmin, authCtrl.getUserDataFromToken)
 
 export { router }

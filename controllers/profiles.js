@@ -29,16 +29,23 @@ async function index(req, res) {
 
 
 async function getAllMyAttendance(req, res) {
-  try {
-    // Refactor to extra profileId from req.auth
-    // Check for match between requester and params
+  try {    
+    // Add check for no attendance - return msg?
     // Do we need to sort these in any particular way?
     // Double check how this functions for returning students.
 
-    // Add check for no attendance - return msg?
-
+    const { sub } = req.auth
     const { cohortId } = req.query
     const { profileId } = req.params
+
+    // Find profile of user who issued request:
+    const profile = Profile.findOne({ user_id: sub }).select('_id')
+
+    // Confirm match between requesting user and params:
+    if (profile._id !== profileId) {
+      return res.status(401).json({ err: 'Not Authorized' })
+    }
+
     const attendance = await Attendance.find(
       { cohort: cohortId },
       {

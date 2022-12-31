@@ -14,6 +14,8 @@ const checkJwt = jwt.expressjwt({
 })
 
 const checkAdmin = (req, res, next) => {
+  // Roles can be viewed on req.auth['sei/roles']
+  // Full permissions can be viewed on req.auth.permissions
   if (req.auth.isAdmin) {
     next()
   } else {
