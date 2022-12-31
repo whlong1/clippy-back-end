@@ -1,86 +1,73 @@
 import { Squad } from '../models/squad.js'
 
-function index(req, res) {
-  if (req.profile.role >= 400) {
-    Squad.find({})
-      .populate({ path: 'students', options: { sort: 'normalizedName' } })
-      .then((squads) => res.json(squads))
-      .catch((err) => {
-        console.log(err)
-        res.status(500).json(err)
-      })
-  } else {
-    res.status(401).json({ err: 'Not Authorized' })
+async function index(req, res) {
+  try {
+    if (req.profile.role < 400) {
+      return res.status(401).json({ err: 'Not Authorized' })
+    }
+    const squads = await Squad.find({}).populate({
+      path: 'students', options: { sort: 'normalizedName' }
+    })
+    res.status(200).json(squads)
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 
-function create(req, res) {
-  if (req.profile.role >= 900) {
-    Squad.create(req.body)
-      .then((squad) => {
-        res.json(squad)
-      })
-      .catch((err) => {
-        res.status(500).json(err)
-      })
-  } else {
-    res.status(401).json({ err: 'Not Authorized' })
+async function create(req, res) {
+  try {
+    if (req.profile.role < 900) {
+      return res.status(401).json({ err: 'Not Authorized' })
+    }
+    const squad = await Squad.create(req.body)
+    res.status(200).json(squad)
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 
-function addMember(req, res) {
-  if (req.profile.role >= 900) {
-    Squad.findById(req.params.squadId)
-      .then((squad) => {
-        if (!squad.students.includes(req.params.profileId)) {
-          squad.students.push(req.params.profileId)
-          squad.save()
-          squad.populate({ path: 'students', options: { sort: 'normalizedName' } })
-            .then((squad) => {
-              res.json(squad)
-            })
-        }
-      })
-      .catch((err) => {
-        res.status(500).json(err)
-      })
-  } else {
-    res.status(401).json({ err: 'Not Authorized' })
+async function addMember(req, res) {
+  try {
+    if (req.profile.role < 900) {
+      return res.status(401).json({ err: 'Not Authorized' })
+    }
+    const squad = await Squad.findById(req.params.squadId)
+    if (!squad.students.includes(req.params.profileId)) {
+      squad.students.push(req.params.profileId)
+      await squad.save()
+      await squad.populate({ path: 'students', options: { sort: 'normalizedName' } })
+      res.status(200).json(squad)
+    }
+  } catch (err) {
+    res.status(500).json(err)
+  }
+
+}
+
+async function removeMember(req, res) {
+  try {
+    if (req.profile.role < 900) {
+      return res.status(401).json({ err: 'Not Authorized' })
+    }
+    const squad = await Squad.findById(req.params.squadId)
+    squad.students.remove(req.params.profileId)
+    await squad.save()
+    await squad.populate({ path: 'students', options: { sort: 'normalizedName' } })
+    res.status(200).json(squad)
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 
-function removeMember(req, res) {
-  if (req.profile.role >= 900) {
-    Squad.findById(req.params.squadId)
-      .then((squad) => {
-        squad.students.remove(req.params.profileId)
-        squad.save()
-        squad.populate({ path: 'students', options: { sort: 'normalizedName' } })
-          .then((squad) => {
-            res.json(squad)
-          })
-      })
-      .catch((err) => {
-        console.log(err)
-        res.status(500).json(err)
-      })
-  } else {
-    res.status(401).json({ err: 'Not Authorized' })
-  }
-}
-
-function deleteSquad(req, res) {
-  if (req.profile.role >= 900) {
-    Squad.findByIdAndDelete(req.params.id)
-      .then((squad) => {
-        res.json(squad)
-      })
-      .catch((err) => {
-        console.log(err)
-        res.status(500).json(err)
-      })
-  } else {
-    res.status(401).json({ err: 'Not Authorized' })
+async function deleteSquad(req, res) {
+  try {
+    if (req.profile.role < 900) {
+      return res.status(401).json({ err: 'Not Authorized' })
+    }
+    const squad = await Squad.findByIdAndDelete(req.params.id)
+    res.status(200).json(squad)
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 
