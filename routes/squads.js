@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { checkAdmin, checkJwt } from '../middleware/auth.js'
 import * as squadsCtrl from '../controllers/squads.js'
 
 const router = Router()

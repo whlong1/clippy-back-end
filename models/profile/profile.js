@@ -2,11 +2,9 @@ import mongoose from 'mongoose'
 import * as profileSchemaMethods from './methods.js'
 
 const profileSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  sub: {
+
+  // Auth0 stage:
+  user_id: {
     type: String,
     required: true,
   },
@@ -15,6 +13,12 @@ const profileSchema = new mongoose.Schema({
     required: true,
     lowercase: true,
     unique: true
+  },
+
+  // Onboarding stage:
+  name: {
+    type: String,
+    required: true,
   },
   firstName: {
     type: String,

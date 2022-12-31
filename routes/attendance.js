@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { checkAdmin, checkJwt } from '../middleware/auth.js'
 import * as attendanceCtrl from '../controllers/attendance.js'
 
 const router = Router()

@@ -3,9 +3,10 @@ import { Profile } from '../models/profile/profile.js'
 
 async function getUserDataFromToken(req, res) {
   try {
+    // console.log('REQ.AUTH', req.auth)
     const profile = await Profile.findOne({ user_id: req.auth.sub })
     if (profile) {
-
+      // console.log('Profile', profile)
       // Getting user roles is redundant after front end fix.
       // Should we leave this in as an added security measure?
 

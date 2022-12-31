@@ -14,8 +14,12 @@ const checkJwt = jwt.expressjwt({
 })
 
 const checkAdmin = (req, res, next) => {
-  console.log(req.auth)
-  next()
+  if (req.auth.isAdmin) {
+    next()
+  } else {
+    return res.status(401).json({ err: 'Not Authorized' })
+  }
 }
+
 
 export { checkJwt, checkAdmin }

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { checkJwt, checkAdmin } from '../middleware/auth.js'
+import { checkAdmin, checkJwt } from '../middleware/auth.js'
 
 import * as deliverablesCtrl from '../controllers/deliverables.js'
 
