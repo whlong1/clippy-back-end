@@ -24,6 +24,7 @@ function findByIdAndJoinStudents(deliverableId) {
       $group: {
         _id: "$_id",
         name: { $first: "$name" },
+        cohort: { $first: "$cohort" },
         dueDate: { $first: "$dueDate" },
         notionUrl: { $first: "$notionUrl" },
         hasMiscUrl: { $first: "$hasMiscUrl" },

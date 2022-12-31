@@ -105,6 +105,7 @@ async function submitStudentDeliverable(req, res) {
 // Instructor View for Deliverable
 async function show(req, res) {
   try {
+    // Add condition for deliverable not found
     const { deliverableId } = req.params
     const deliverable = await Deliverable.findByIdAndJoinStudents(deliverableId)
     res.status(200).json(deliverable)
@@ -128,18 +129,30 @@ async function showStudentDeliverable(req, res) {
 async function deleteDeliverable(req, res) {
   // Add admin check
   try {
-    // Find Deliverable
-    // loop through deliverable.students
-    // deliverable.students is an array of studentDeliverables
-    // Profile.updateOne({_id: studentDeliverable.profile}) to remove doc from profile.deliverables
-    // Find and delete StudentDeliverable doc through deliverable.students[i]._id
+    const { deliverableId } = req.params
+    const [deliverable] = await Deliverable.findByIdAndJoinStudents(deliverableId)
+    console.log(deliverable)
+    // Note: deliverable.students is an array of studentDeliverables
+    // for (const studentDeliverable of deliverable.students) {
+    //   await Promise.all([
+    //     Profile.updateOne(
+    //       { _id: studentDeliverable.profileId },
+    //       { $pull: { deliverables: studentDeliverable._id } }
+    //     ),
+    //     StudentDeliverable.findByIdAndDelete(studentDeliverable._id),
+    //   ])
+    // }
 
-
-    // Find cohort through deliverable.cohort (cohortId)
-    // remove deliverable from cohort.deliverables
-    // save cohort
-    // delete Deliverable
+    // await Promise.all([
+    //   Cohort.updateOne(
+    //     { _id: deliverable.cohort },
+    //     { $pull: { deliverables: deliverableId } }
+    //   ),
+    //   Deliverable.deleteOne({ _id: deliverableId }),
+    // ])
+    res.status(200).json({ msg: 'OK' })
   } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
