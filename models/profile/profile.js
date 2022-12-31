@@ -2,10 +2,14 @@ import mongoose from 'mongoose'
 import * as profileSchemaMethods from './methods.js'
 
 const profileSchema = new mongoose.Schema({
-  name: String,
-  photo: String,
-  sub: String,
-
+  name: {
+    type: String,
+    required: true,
+  },
+  sub: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -49,7 +53,6 @@ const profileSchema = new mongoose.Schema({
 }, {
   timestamps: true,
 })
-
 
 profileSchema.statics = profileSchemaMethods
 const Profile = mongoose.model('Profile', profileSchema)
