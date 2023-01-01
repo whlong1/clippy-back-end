@@ -48,6 +48,10 @@ const profileSchema = new mongoose.Schema({
   codeWarsUserName: {
     type: String
   },
+  isOnboarded: {
+    type: Boolean,
+    default: false
+  },
   deliverables: [{ type: mongoose.Types.ObjectId, ref: 'StudentDeliverable' }],
 }, {
   timestamps: true,
