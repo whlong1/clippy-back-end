@@ -48,6 +48,10 @@ const profileSchema = new mongoose.Schema({
   codeWarsUserName: {
     type: String
   },
+  isProfileComplete: {
+    type: Boolean,
+    default: false
+  },
   isOnboarded: {
     type: Boolean,
     default: false

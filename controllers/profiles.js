@@ -4,8 +4,24 @@ import { Attendance } from '../models/attendance/attendance.js'
 import { Deliverable } from '../models/deliverable/deliverable.js'
 import { StudentDeliverable } from '../models/studentDeliverable/studentDeliverable.js'
 
+async function updateProfile(req, res) {
+  try {
+    // After a user fills out remaining profile fields:
+    req.body.isProfileComplete = true
+    
+    // The 'user_id' value we need can be found on req.auth.sub:
+    const profile = await Profile.findOneAndUpdate(
+      { user_id: req.auth.sub }, req.body, { new: true }
+    )
 
-async function getMyProfile(req, res) { 
+    res.status(200).json(profile)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+
+async function getMyProfile(req, res) {
   try {
     // The 'user_id' value we need can be found on req.auth.sub:
     const profile = await Profile.findOne({ user_id: req.auth.sub })
@@ -20,7 +36,7 @@ async function getMyProfile(req, res) {
 }
 
 async function getAllMyAttendance(req, res) {
-  try {    
+  try {
     // Add check for no attendance - return msg?
     // Do we need to sort these in any particular way?
     // Double check how this functions for returning students.
@@ -46,7 +62,7 @@ async function getAllMyAttendance(req, res) {
         students: { $elemMatch: { studentId: profileId } },
       }
     )
-    
+
     res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)
@@ -69,6 +85,7 @@ async function getAllMyDeliverables(req, res) {
 
 export {
   getMyProfile,
+  updateProfile,
   getAllMyAttendance,
   getAllMyDeliverables,
 }
