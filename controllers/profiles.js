@@ -23,7 +23,6 @@ async function updateProfile(req, res) {
   }
 }
 
-
 async function getMyProfile(req, res) {
   try {
     // The 'user_id' value we need can be found on req.auth.sub:

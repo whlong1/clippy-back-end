@@ -11,7 +11,8 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 
 // Core
-router.get('/', cohortsCtrl.index)
+router.get('/', checkJwt, cohortsCtrl.index)
+
 router.post('/', cohortsCtrl.create)
 router.patch('/:cohortId', cohortsCtrl.update)
 
