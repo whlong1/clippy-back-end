@@ -6,9 +6,12 @@ import { StudentDeliverable } from '../models/studentDeliverable/studentDelivera
 
 async function updateProfile(req, res) {
   try {
-    // After a user fills out remaining profile fields:
+    const { preferredName, firstName, lastName } = req.body
+
     req.body.isProfileComplete = true
-    
+    req.body.preferredName = preferredName ? preferredName : firstName
+    req.body.normalizedName = `${preferredName.toLowerCase()} ${lastName.toLowerCase()}`
+
     // The 'user_id' value we need can be found on req.auth.sub:
     const profile = await Profile.findOneAndUpdate(
       { user_id: req.auth.sub }, req.body, { new: true }
