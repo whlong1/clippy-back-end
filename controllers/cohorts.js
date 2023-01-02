@@ -58,7 +58,7 @@ async function addProfileToWaitlist(req, res) {
     const isProfileInCohort = await checkProfileInCohort(cohortId, profileId)
 
     if (isProfileInCohort) {
-      return res.status(500).json({ 
+      return res.status(500).json({
         message: 'Your has already been added to the waitlist for this cohort.'
       })
     }
@@ -94,7 +94,11 @@ async function approveProfile(req, res) {
       Cohort.updateOne(
         { _id: cohortId },
         { $addToSet: { [newRole]: profileId } }
-      )
+      ),
+      Profile.updateOne(
+        { _id: profileId }, 
+        { isOnboarded: true, isApprovalPending: false }
+      ),
     ])
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
