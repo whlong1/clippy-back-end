@@ -6,11 +6,16 @@ import { StudentDeliverable } from '../models/studentDeliverable/studentDelivera
 
 async function updateProfile(req, res) {
   try {
-    const { preferredName, firstName, lastName } = req.body
+    
+    if (req.body.preferredName.trim() === '') {
+      req.body.preferredName = req.body.firstName
+    }
+
+    const { preferredName, lastName } = req.body
+    const normalizedName = `${preferredName.toLowerCase()} ${lastName.toLowerCase()}`
 
     req.body.isProfileComplete = true
-    req.body.preferredName = preferredName ? preferredName : firstName
-    req.body.normalizedName = `${preferredName.toLowerCase()} ${lastName.toLowerCase()}`
+    req.body.normalizedName = normalizedName
 
     // The 'user_id' value we need can be found on req.auth.sub:
     const profile = await Profile.findOneAndUpdate(
