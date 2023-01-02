@@ -62,7 +62,6 @@ const profileSchema = new mongoose.Schema({
   },
   cohort: {
     type: mongoose.Types.ObjectId, ref: 'Cohort',
-    required: true
   },
   deliverables: [{ type: mongoose.Types.ObjectId, ref: 'StudentDeliverable' }],
 }, {

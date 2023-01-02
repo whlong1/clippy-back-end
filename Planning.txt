@@ -30,3 +30,7 @@ Alternate approach:
 Students will not regularly need to switch between cohorts
 In fact, why not disable this behavior?
 Profile can store a students current cohort
+
+Storing cohort on profile could be messy for staff
+but the isAdmin property would still grant access to the whole site
+HOWEVER, with the current cohort property set, staff members could pick the default cohort for loading content!!!

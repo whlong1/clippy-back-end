@@ -44,7 +44,7 @@ async function update(req, res) {
   }
 }
 
-async function indexPeople(req, res) {
+async function getCohortPeople(req, res) {
   try {
     const [cohortPeople] = await Cohort.joinAllProfiles(req.params.cohortId)
     res.status(200).json(cohortPeople)
@@ -189,9 +189,9 @@ export {
   create,
   update,
   changeRole,
-  indexPeople,
   denyProfile,
   removeProfile,
   approveProfile,
+  getCohortPeople,
   addProfileToWaitlist,
 }
