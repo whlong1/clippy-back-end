@@ -52,6 +52,10 @@ const profileSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  isApprovalPending: {
+    type: Boolean,
+    default: false
+  },
   isOnboarded: {
     type: Boolean,
     default: false
