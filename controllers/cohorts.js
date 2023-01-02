@@ -58,7 +58,9 @@ async function addProfileToWaitlist(req, res) {
     const isProfileInCohort = await checkProfileInCohort(cohortId, profileId)
 
     if (isProfileInCohort) {
-      return res.status(500).json({ msg: 'Profile already in cohort' })
+      return res.status(500).json({ 
+        message: 'Your has already been added to the waitlist for this cohort.'
+      })
     }
 
     const result = await Promise.all([

@@ -6,9 +6,6 @@ import { StudentDeliverable } from '../models/studentDeliverable/studentDelivera
 
 async function updateProfile(req, res) {
   try {
-    for (const key in req.body) {
-      if (req.body[key].trim() === '') delete req.body[key]
-    }
 
     if (!req.body.preferredName) {
       req.body.preferredName = req.body.firstName
