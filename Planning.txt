@@ -1,0 +1,32 @@
+
+controllers/cohorts.js
+
+This approach currently limits list to cohorts that the profile belongs to.
+
+async function index(req, res) {
+  try {
+    const { sub } = req.auth
+    const profile = await Profile.findOne({ user_id: sub }).select('_id')
+
+    const queryConditions = [
+      { ias: { $in: [profile._id] } },
+      { tas: { $in: [profile._id] } },
+      { students: { $in: [profile._id] } },
+      { waitlist: { $in: [profile._id] } },
+      { inactive: { $in: [profile._id] } },
+      { instructors: { $in: [profile._id] } },
+    ]
+
+    const cohorts = await Cohort.find({ $or: queryConditions })
+      .sort({ endDate: 'desc' }).select('name')
+
+    res.status(200).json(cohorts)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+Alternate approach:
+Students will not regularly need to switch between cohorts
+In fact, why not disable this behavior?
+Profile can store a students current cohort

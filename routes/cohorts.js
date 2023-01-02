@@ -7,7 +7,6 @@ const router = Router()
 
 /*---------- Public Routes ----------*/
 
-
 /*---------- Protected Routes ----------*/
 
 // Core
@@ -20,11 +19,14 @@ router.patch('/:cohortId', cohortsCtrl.update)
 router.get('/:cohortId/people', cohortsCtrl.indexPeople)
 router.patch('/:cohortId/people/:profileId', cohortsCtrl.changeRole)
 
-// Admin
+// Profile management
 router.post('/:cohortId/deny/:profileId', cohortsCtrl.denyProfile)
 router.post('/:cohortId/remove/:profileId', cohortsCtrl.removeProfile)
-router.post('/:cohortId/approve/:profileId', cohortsCtrl.approveProfile)
-router.post('/:cohortId/waitlist/:profileId', cohortsCtrl.addProfileToWaitlist)
+router.post('/:cohortId/approve/:profileId', checkJwt, cohortsCtrl.approveProfile)
+router.post('/:cohortId/waitlist/:profileId', checkJwt, cohortsCtrl.addProfileToWaitlist)
+
+// Add checkAdmin to:
+// approveProfile, removeProfile, denyProfile, changeRole
 
 
 export { router }

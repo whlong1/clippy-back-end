@@ -20,6 +20,7 @@ async function create(req, res) {
   }
 }
 
+
 async function index(req, res) {
   try {
     const cohorts = await Cohort.find({})
@@ -96,8 +97,8 @@ async function approveProfile(req, res) {
         { $addToSet: { [newRole]: profileId } }
       ),
       Profile.updateOne(
-        { _id: profileId }, 
-        { isOnboarded: true, isApprovalPending: false }
+        { _id: profileId },
+        { isOnboarded: true, isApprovalPending: false, cohort: cohortId }
       ),
     ])
     res.status(200).json({ msg: 'OK' })
