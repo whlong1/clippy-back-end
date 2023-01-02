@@ -61,11 +61,6 @@ async function addProfileToWaitlist(req, res) {
       return res.status(500).json({ msg: 'Profile already in cohort' })
     }
 
-    // await Cohort.updateOne(
-    //   { _id: cohortId },
-    //   { $push: { waitlist: profileId } },
-    // )
-
     const result = await Promise.all([
       Profile.findByIdAndUpdate(
         profileId, { isApprovalPending: true }, { new: true }
@@ -77,9 +72,6 @@ async function addProfileToWaitlist(req, res) {
     ])
 
     const waitListedProfile = result[0]
-    console.log(waitListedProfile)
-
-    // res.status(200).json({ msg: 'OK' })
     res.status(200).json(waitListedProfile)
   } catch (err) {
     res.status(500).json(err)

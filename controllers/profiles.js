@@ -42,6 +42,7 @@ async function getMyProfile(req, res) {
       throw Error('Profile not found!')
     }
   } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
