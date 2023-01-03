@@ -32,7 +32,19 @@ async function updateProfile(req, res) {
 async function show(req, res) {
   try {
     const { profileId } = req.params
-    const profile = await Profile.findById(profileId)
+
+    const fields = {
+      email: 1,
+      lastName: 1,
+      firstName: 1,
+      preferredName: 1,
+      gitHubUserName: 1,
+      linkedInUserName: 1,
+      codeWarsUserName: 1,
+      preferredPronouns: 1,
+    }
+
+    const profile = await Profile.findById(profileId).select(fields)
     res.status(200).json(profile)
   } catch (err) {
     console.log(err)
