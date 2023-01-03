@@ -85,7 +85,6 @@ async function addProfileToWaitlist(req, res) {
 async function approveProfile(req, res) {
   try {
     // EG: { formerRole: "waitlist", newRole: "ias" }
-    // Can be used to reinstate student as well. 
     const { formerRole, newRole } = req.body
     const { cohortId, profileId } = req.params
     await Promise.all([

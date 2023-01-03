@@ -35,14 +35,3 @@ Storing cohort on profile could be messy for staff
 but the isAdmin property would still grant access to the whole site
 HOWEVER, with the current cohort property set, staff members could pick the default cohort for loading content!!!
 
-
-
-
-  email
-  lastName
-  firstName
-  preferredName
-  gitHubUserName
-  linkedInUserName
-  codeWarsUserName
-  preferredPronouns
