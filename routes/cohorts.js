@@ -16,7 +16,7 @@ router.post('/', cohortsCtrl.create)
 router.patch('/:cohortId', cohortsCtrl.update)
 
 // People
-router.get('/:cohortId/people', cohortsCtrl.getCohortPeople)
+router.get('/:cohortId/people', checkJwt, cohortsCtrl.getCohortPeople)
 router.patch('/:cohortId/people/:profileId', cohortsCtrl.changeRole)
 
 // Profile management
