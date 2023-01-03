@@ -29,6 +29,17 @@ async function updateProfile(req, res) {
   }
 }
 
+async function show(req, res) {
+  try {
+    const { profileId } = req.params
+    const profile = await Profile.findById(profileId)
+    res.status(200).json(profile)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
 async function getMyProfile(req, res) {
   try {
     // The 'user_id' value we need can be found on req.auth.sub:
@@ -93,6 +104,7 @@ async function getAllMyDeliverables(req, res) {
 }
 
 export {
+  show,
   getMyProfile,
   updateProfile,
   getAllMyAttendance,

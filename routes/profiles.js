@@ -10,6 +10,7 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 
 router.get('/', checkJwt, profilesCtrl.getMyProfile)
+router.get('/:profileId', checkJwt, profilesCtrl.show)
 router.patch('/', checkJwt, profilesCtrl.updateProfile)
 router.get('/:profileId/attendance', profilesCtrl.getAllMyAttendance)
 router.get('/:profileId/deliverables', profilesCtrl.getAllMyDeliverables)
