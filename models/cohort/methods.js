@@ -8,6 +8,7 @@ function joinAllProfiles(cohortId) {
     lastName: 1,
     firstName: 1,
     preferredName: 1,
+    normalizedName: 1,
     gitHubUserName: 1,
   }
 
