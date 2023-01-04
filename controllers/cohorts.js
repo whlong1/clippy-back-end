@@ -123,12 +123,12 @@ async function denyProfile(req, res) {
 
 async function removeProfile(req, res) {
   try {
-    const { role } = req.body
+    const { formerRole } = req.body
     const { cohortId, profileId } = req.params
     await Promise.all([
       Cohort.updateOne(
         { _id: cohortId },
-        { $pull: { [role]: profileId } },
+        { $pull: { [formerRole]: profileId } },
       ),
       Cohort.updateOne(
         { _id: cohortId },
