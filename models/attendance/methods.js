@@ -28,7 +28,9 @@ function findByIdAndJoinProfiles(attendanceId) {
             photo: { $first: "$students.profile.photo" },
             lastName: { $first: "$students.profile.lastName" },
             firstName: { $first: "$students.profile.firstName" },
+            preferredName: { $first: "$students.profile.preferredName" },
             normalizedName: { $first: "$students.profile.normalizedName" },
+            gitHubUserName: { $first: "$students.profile.gitHubUserName" },
             // Additional fields from the profile can be specified here.
           },
         },
