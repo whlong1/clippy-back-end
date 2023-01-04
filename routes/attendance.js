@@ -8,7 +8,7 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.get('/', attendanceCtrl.index)
-router.post('/', attendanceCtrl.create)
+router.post('/', checkJwt, checkAdmin, attendanceCtrl.create)
 
 router.get('/:attendanceId', attendanceCtrl.show)
 router.put('/:attendanceId', attendanceCtrl.update)

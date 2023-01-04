@@ -131,7 +131,7 @@ async function deleteDeliverable(req, res) {
   try {
     const { deliverableId } = req.params
     const [deliverable] = await Deliverable.findByIdAndJoinStudents(deliverableId)
-    
+
     // Note: deliverable.students is an array of studentDeliverables
     // This loop can be removed by using updateMany and deleteMany
     for (const studentDeliverable of deliverable.students) {

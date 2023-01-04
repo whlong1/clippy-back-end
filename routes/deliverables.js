@@ -11,7 +11,7 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 
 router.get('/', deliverablesCtrl.index)
-router.post('/', deliverablesCtrl.create)
+router.post('/', checkJwt, checkAdmin, deliverablesCtrl.create)
 router.get('/:deliverableId', deliverablesCtrl.show)
 router.delete('/:deliverableId', deliverablesCtrl.deleteDeliverable)
 
