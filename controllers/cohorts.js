@@ -20,7 +20,6 @@ async function create(req, res) {
   }
 }
 
-
 async function index(req, res) {
   try {
     const cohorts = await Cohort.find({})
@@ -182,7 +181,6 @@ async function checkProfileInCohort(cohortId, profileId) {
   })
   return profileInCohort
 }
-
 
 export {
   index,
