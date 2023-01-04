@@ -108,6 +108,7 @@ async function show(req, res) {
     // Add condition for deliverable not found?
     const { deliverableId } = req.params
     const [deliverable] = await Deliverable.findByIdAndJoinStudents(deliverableId)
+    console.log(deliverable)
     res.status(200).json(deliverable)
   } catch (err) {
     console.log(err)
