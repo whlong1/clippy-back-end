@@ -10,14 +10,14 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 
-router.get('/', deliverablesCtrl.index)
+router.get('/', checkJwt, deliverablesCtrl.index)
 router.post('/', checkJwt, checkAdmin, deliverablesCtrl.create)
-router.get('/:deliverableId', deliverablesCtrl.show)
-router.delete('/:deliverableId', deliverablesCtrl.deleteDeliverable)
+router.get('/:deliverableId', checkJwt, deliverablesCtrl.show)
+router.delete('/:deliverableId', checkJwt, checkAdmin, deliverablesCtrl.deleteDeliverable)
 
-router.get('/:sdId/view', deliverablesCtrl.showStudentDeliverable)
-router.patch('/:sdId/grade', deliverablesCtrl.gradeStudentDeliverable)
-router.patch('/:sdId/submit', deliverablesCtrl.submitStudentDeliverable)
+router.get('/:sdId/view', checkJwt, deliverablesCtrl.showStudentDeliverable)
+router.patch('/:sdId/submit', checkJwt, deliverablesCtrl.submitStudentDeliverable)
+router.patch('/:sdId/grade', checkJwt, checkAdmin, deliverablesCtrl.gradeStudentDeliverable)
 
 
 export { router }
