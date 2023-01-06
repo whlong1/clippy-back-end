@@ -69,9 +69,11 @@ async function gradeStudentDeliverable(req, res) {
   try {
     const { sdId } = req.params
     req.body.hasNewStatus = true
+    
     const studentDeliverable = await StudentDeliverable.findByIdAndUpdate(
       sdId, req.body, { new: true }
-    )
+    ).select('-profile -deliverable -createdAt -updatedAt')
+
     res.status(200).json(studentDeliverable)
   } catch (err) {
     res.status(500).json(err)
