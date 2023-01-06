@@ -68,6 +68,7 @@ async function gradeStudentDeliverable(req, res) {
   // Admin check
   try {
     const { sdId } = req.params
+    req.body.hasNewStatus = true
     const studentDeliverable = await StudentDeliverable.findByIdAndUpdate(
       sdId, req.body, { new: true }
     )
@@ -77,9 +78,7 @@ async function gradeStudentDeliverable(req, res) {
   }
 }
 
-// How does hasNewStatus factor in here?
 // Do we want any validation on submitted links here?
-// Can the response be an 'OK' msg or simply the status?
 // Shouldn't the status always switch to pendingAudit on submit?
 async function submitStudentDeliverable(req, res) {
   try {
@@ -108,7 +107,6 @@ async function show(req, res) {
     // Add condition for deliverable not found?
     const { deliverableId } = req.params
     const [deliverable] = await Deliverable.findByIdAndJoinStudents(deliverableId)
-    console.log(deliverable)
     res.status(200).json(deliverable)
   } catch (err) {
     console.log(err)
@@ -155,6 +153,7 @@ async function deleteDeliverable(req, res) {
 
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
