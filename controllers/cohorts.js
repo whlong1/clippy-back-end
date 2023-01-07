@@ -132,7 +132,11 @@ async function removeProfile(req, res) {
       Cohort.updateOne(
         { _id: cohortId },
         { $addToSet: { inactive: profileId } }
-      )
+      ),
+      Profile.updateOne(
+        { _id: profileId },
+        { isWithdrawn: true }
+      ),
     ])
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
@@ -146,10 +150,6 @@ async function changeRole(req, res) {
     const { cohortId, profileId } = req.params
     const { newGroup, oldGroup, newRole } = req.body
     await Promise.all([
-      Profile.updateOne(
-        { _id: profileId },
-        { role: newRole }
-      ),
       Cohort.updateOne(
         { _id: cohortId },
         { $pull: { [oldGroup]: profileId } },
@@ -157,7 +157,12 @@ async function changeRole(req, res) {
       Cohort.updateOne(
         { _id: cohortId },
         { $addToSet: { [newGroup]: profileId } }
-      )
+      ),
+      Profile.updateOne(
+        { _id: profileId },
+        // Might need additional checks here:
+        { role: newRole, isWithdrawn: false }
+      ),
     ])
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
