@@ -147,6 +147,7 @@ async function removeProfile(req, res) {
 async function changeRole(req, res) {
   try {
     // EG: { newRole: "ias", formerRole: "tas" }
+    return res.status(200).json({ msg: 'OK' })
     const { cohortId, profileId } = req.params
     const { newRole, formerRole } = req.body
 

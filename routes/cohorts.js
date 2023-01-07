@@ -9,17 +9,15 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 
-// Core
+
 router.get('/', checkJwt, cohortsCtrl.index)
 
 router.post('/', cohortsCtrl.create)
 router.patch('/:cohortId', cohortsCtrl.update)
 
-// People
 router.get('/:cohortId/people', checkJwt, cohortsCtrl.getCohortPeople)
-router.patch('/:cohortId/people/:profileId', cohortsCtrl.changeRole)
+router.patch('/:cohortId/people/:profileId', checkJwt, checkAdmin, cohortsCtrl.changeRole)
 
-// Profile management
 // Note: addProfileToWaitlist does not need admin check as the request is made by student.
 router.post('/:cohortId/waitlist/:profileId', checkJwt, cohortsCtrl.addProfileToWaitlist)
 router.post('/:cohortId/deny/:profileId', checkJwt, checkAdmin, cohortsCtrl.denyProfile)
