@@ -16,10 +16,6 @@ const profileSchema = new mongoose.Schema({
   },
 
   // Onboarding stage:
-  name: {
-    type: String,
-    required: true,
-  },
   firstName: {
     type: String,
     required: true
