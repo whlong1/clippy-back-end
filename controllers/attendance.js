@@ -5,7 +5,7 @@ async function index(req, res) {
   try {
     const fields = 'date time'
     const filter = { cohort: req.query.cohortId }
-    const cohortAttendance = await Attendance.find(filter, fields)
+    const cohortAttendance = await Attendance.find(filter, fields).sort({ date: -1 })
     res.status(200).json(cohortAttendance)
   } catch (err) {
     res.status(500).json(err)
@@ -52,6 +52,7 @@ async function update(req, res) {
 async function deleteAttendance(req, res) {
   try {
     // Add admin check
+    // return res.status(200).json({ _id: req.params.attendanceId })
     const { attendanceId } = req.params
     const attendance = await Attendance.findByIdAndDelete(attendanceId)
 
