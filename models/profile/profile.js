@@ -60,6 +60,10 @@ const profileSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  isWithdrawn: {
+    type: Boolean,
+    default: false
+  },
   cohort: {
     type: mongoose.Types.ObjectId, ref: 'Cohort',
   },
