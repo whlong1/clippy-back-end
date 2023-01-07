@@ -4,6 +4,7 @@ function findByCohortAndJoinStatus(cohortId) {
   return this.aggregate([
     { $match: { cohort: mongoose.Types.ObjectId(cohortId) } },
     { $lookup: { from: 'studentdeliverables', localField: 'students', foreignField: '_id', as: 'students' } },
+    { $sort: { createdAt: -1 } },
     {
       $project: {
         name: 1,
