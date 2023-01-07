@@ -12,8 +12,8 @@ const router = Router()
 
 router.get('/', checkJwt, cohortsCtrl.index)
 
-router.post('/', cohortsCtrl.create)
-router.patch('/:cohortId', cohortsCtrl.update)
+router.post('/', checkJwt, checkAdmin, cohortsCtrl.create)
+router.patch('/:cohortId', checkJwt, checkAdmin, cohortsCtrl.update)
 
 router.get('/:cohortId/people', checkJwt, cohortsCtrl.getCohortPeople)
 router.patch('/:cohortId/people/:profileId', checkJwt, checkAdmin, cohortsCtrl.changeRole)

@@ -147,7 +147,6 @@ async function removeProfile(req, res) {
 async function changeRole(req, res) {
   try {
     // EG: { newRole: "ias", formerRole: "tas" }
-    return res.status(200).json({ msg: 'OK' })
     const { cohortId, profileId } = req.params
     const { newRole, formerRole } = req.body
 
@@ -173,10 +172,7 @@ async function changeRole(req, res) {
   }
 }
 
-// Look into findProfileCohortsRelationships & scrub helper functions
-// Might want to find current role of a profile, and use that in place of oldGroup
-
-// ====== HELPERS ====== 
+// Helpers
 
 async function checkProfileInCohort(cohortId, profileId) {
   let profileInCohort = false
