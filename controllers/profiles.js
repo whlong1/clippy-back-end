@@ -31,6 +31,7 @@ async function updateProfile(req, res) {
 
 async function show(req, res) {
   try {
+    const { cohortId } = req.query
     const { profileId } = req.params
 
     const fields = {
@@ -44,8 +45,12 @@ async function show(req, res) {
       preferredPronouns: 1,
     }
 
-    const profile = await Profile.findById(profileId).select(fields)
-    res.status(200).json(profile)
+    const [currentRole, profile] = await Promise.all([
+      findCurrentRole(cohortId, profileId),
+      Profile.findById(profileId).select(fields).lean()
+    ])
+
+    res.status(200).json({ ...profile, role: currentRole })
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
@@ -114,6 +119,23 @@ async function getAllMyDeliverables(req, res) {
     res.status(500).json(err)
   }
 }
+
+
+// Helpers
+
+async function findCurrentRole(cohortId, profileId) {
+  const selectedFields = { _id: 1 }
+  const isProfileInArray = (p) => p._id.equals(profileId)
+  const [roles] = await Cohort.joinAllProfiles(cohortId, selectedFields)
+
+  for (const role in roles) {
+    if (Array.isArray(roles[role]) && roles[role].some(isProfileInArray)) {
+      return role
+    }
+  }
+
+}
+
 
 export {
   show,

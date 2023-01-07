@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
 
-function joinAllProfiles(cohortId) {
+function joinAllProfiles(cohortId, fields) {
   // Additional fields from profile can be specified here
-  const selectedFields = {
+
+  const defaultFields = {
     _id: 1,
     email: 1,
     lastName: 1,
@@ -11,6 +12,8 @@ function joinAllProfiles(cohortId) {
     normalizedName: 1,
     gitHubUserName: 1,
   }
+
+  const selectedFields = fields ? fields : defaultFields
 
   return this.aggregate([
     { $match: { _id: mongoose.Types.ObjectId(cohortId) } },

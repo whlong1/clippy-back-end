@@ -146,22 +146,23 @@ async function removeProfile(req, res) {
 
 async function changeRole(req, res) {
   try {
-    // EG: { newGroup: "ias", oldGroup: "tas", newRole: 900 }
+    // EG: { newRole: "ias", formerRole: "tas" }
     const { cohortId, profileId } = req.params
-    const { newGroup, oldGroup, newRole } = req.body
+    const { newRole, formerRole } = req.body
+
     await Promise.all([
       Cohort.updateOne(
         { _id: cohortId },
-        { $pull: { [oldGroup]: profileId } },
+        { $pull: { [formerRole]: profileId } },
       ),
       Cohort.updateOne(
         { _id: cohortId },
-        { $addToSet: { [newGroup]: profileId } }
+        { $addToSet: { [newRole]: profileId } }
       ),
       Profile.updateOne(
         { _id: profileId },
         // Might need additional checks here:
-        { role: newRole, isWithdrawn: false }
+        { isWithdrawn: false }
       ),
     ])
     res.status(200).json({ msg: 'OK' })
