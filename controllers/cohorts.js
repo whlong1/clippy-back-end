@@ -162,7 +162,7 @@ async function changeRole(req, res) {
       Profile.updateOne(
         { _id: profileId },
         // Might need additional checks here:
-        { isWithdrawn: false }
+        { isWithdrawn: newRole === 'inactive' }
       ),
     ])
     res.status(200).json({ msg: 'OK' })
