@@ -85,10 +85,10 @@ async function getAllMyAttendance(req, res) {
     const { profileId } = req.params
 
     // Find profile of user who issued request:
-    const profile = Profile.findOne({ user_id: sub }).select('_id')
+    const profile = await Profile.findOne({ user_id: sub }).select('_id')
 
     // Confirm match between requesting user and params:
-    if (profile._id !== profileId) {
+    if (!profile._id.equals(profileId)) {
       return res.status(401).json({ err: 'Not Authorized' })
     }
 
@@ -104,6 +104,7 @@ async function getAllMyAttendance(req, res) {
 
     res.status(200).json(attendance)
   } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
