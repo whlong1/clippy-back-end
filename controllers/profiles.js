@@ -38,6 +38,7 @@ async function show(req, res) {
       email: 1,
       lastName: 1,
       firstName: 1,
+      isWithdrawn: 1,
       preferredName: 1,
       gitHubUserName: 1,
       linkedInUserName: 1,
