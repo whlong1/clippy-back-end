@@ -31,9 +31,6 @@ async function index(req, res) {
 }
 
 async function update(req, res) {
-  // Add admin check
-  // When do we need to update a cohort?
-  // What properties do we need in response?
   try {
     const { cohortId } = req.params
     const cohort = await Cohort.findByIdAndUpdate(cohortId, req.body)
