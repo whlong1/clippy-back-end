@@ -44,6 +44,7 @@ async function show(req, res) {
       linkedInUserName: 1,
       codeWarsUserName: 1,
       preferredPronouns: 1,
+      isApprovalPending: 1,
     }
 
     const [currentRole, profile] = await Promise.all([
