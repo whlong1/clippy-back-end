@@ -37,6 +37,14 @@ function findByIdAndJoinStudents(deliverableId) {
           $push: {
             _id: "$students._id",
             status: "$students.status",
+
+            // URL links for Deliverable show table:
+            miscUrl: "$students.miscUrl",
+            gitHubUrl: "$students.gitHubUrl",
+            trelloUrl: "$students.trelloUrl",
+            deploymentUrl: "$students.deploymentUrl",
+            codeSandboxUrl: "$students.codeSandboxUrl",
+
             profileId: { $first: "$students.profile._id" },
             lastName: { $first: "$students.profile.lastName" },
             firstName: { $first: "$students.profile.firstName" },
@@ -55,5 +63,3 @@ export {
   findByIdAndJoinStudents,
   findByCohortAndJoinStatus,
 }
-
-
