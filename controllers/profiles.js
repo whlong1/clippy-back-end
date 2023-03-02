@@ -36,6 +36,7 @@ async function show(req, res) {
 
     const fields = {
       email: 1,
+      cohort:1,
       lastName: 1,
       firstName: 1,
       isWithdrawn: 1,
