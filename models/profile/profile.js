@@ -60,6 +60,10 @@ const profileSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  squad: {
+    type: String,
+    default: 'black'
+  },
   cohort: {
     type: mongoose.Types.ObjectId, ref: 'Cohort',
   },
