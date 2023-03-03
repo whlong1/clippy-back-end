@@ -45,6 +45,7 @@ function findByIdAndJoinStudents(deliverableId) {
             deploymentUrl: "$students.deploymentUrl",
             codeSandboxUrl: "$students.codeSandboxUrl",
 
+            squad: { $first: "$students.profile.squad" },
             profileId: { $first: "$students.profile._id" },
             lastName: { $first: "$students.profile.lastName" },
             firstName: { $first: "$students.profile.firstName" },
