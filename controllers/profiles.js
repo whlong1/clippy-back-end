@@ -37,7 +37,7 @@ async function show(req, res) {
 
     const fields = {
       email: 1,
-      cohort:1,
+      cohort: 1,
       lastName: 1,
       firstName: 1,
       isWithdrawn: 1,
@@ -129,15 +129,13 @@ async function updateStudentSquad(req, res) {
   try {
     const profile = await Profile.findOneAndUpdate(
       { _id: req.params.profileId }, req.body, { new: true }
-    )
+    ).select('squad')
     res.status(200).json(profile)
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
   }
 }
-
-
 
 // Helpers
 

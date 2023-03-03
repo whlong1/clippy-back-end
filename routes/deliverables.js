@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import { checkAdmin, checkJwt } from '../middleware/auth.js'
-
 import * as deliverablesCtrl from '../controllers/deliverables.js'
 
 const router = Router()
@@ -18,7 +17,5 @@ router.delete('/:deliverableId', checkJwt, checkAdmin, deliverablesCtrl.deleteDe
 router.get('/:sdId/view', checkJwt, deliverablesCtrl.showStudentDeliverable)
 router.patch('/:sdId/submit', checkJwt, deliverablesCtrl.submitStudentDeliverable)
 router.patch('/:sdId/grade', checkJwt, checkAdmin, deliverablesCtrl.gradeStudentDeliverable)
-
-router.patch('/:sdId/squads', checkJwt, deliverablesCtrl.submitStudentDeliverable)
 
 export { router }
