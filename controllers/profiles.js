@@ -5,6 +5,7 @@ import { Deliverable } from '../models/deliverable/deliverable.js'
 import { StudentDeliverable } from '../models/studentDeliverable/studentDeliverable.js'
 
 async function updateProfile(req, res) {
+  // ONBOARDING
   try {
 
     if (!req.body.preferredName) {
@@ -124,6 +125,19 @@ async function getAllMyDeliverables(req, res) {
   }
 }
 
+async function updateStudentSquad(req, res) {
+  try {
+    const profile = await Profile.findOneAndUpdate(
+      { _id: req.params.profileId }, req.body, { new: true }
+    )
+    res.status(200).json(profile)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+
 
 // Helpers
 
@@ -146,5 +160,6 @@ export {
   getMyProfile,
   updateProfile,
   getAllMyAttendance,
+  updateStudentSquad,
   getAllMyDeliverables,
 }

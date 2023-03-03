@@ -19,5 +19,6 @@ router.get('/:sdId/view', checkJwt, deliverablesCtrl.showStudentDeliverable)
 router.patch('/:sdId/submit', checkJwt, deliverablesCtrl.submitStudentDeliverable)
 router.patch('/:sdId/grade', checkJwt, checkAdmin, deliverablesCtrl.gradeStudentDeliverable)
 
+router.patch('/:sdId/squads', checkJwt, deliverablesCtrl.submitStudentDeliverable)
 
 export { router }
