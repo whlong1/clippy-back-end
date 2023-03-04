@@ -69,7 +69,7 @@ async function gradeStudentDeliverable(req, res) {
   try {
     const { sdId } = req.params
     req.body.hasNewStatus = true
-    
+
     const studentDeliverable = await StudentDeliverable.findByIdAndUpdate(
       sdId, req.body, { new: true }
     ).select('-profile -deliverable -createdAt -updatedAt')
@@ -79,6 +79,31 @@ async function gradeStudentDeliverable(req, res) {
     res.status(500).json(err)
   }
 }
+
+
+
+// ===============================================
+async function markAllDeliverablesComplete(req, res) {
+  // Admin check
+  try {
+    const { deliverableId } = req.params
+    req.body.hasNewStatus = true
+
+    const studentDeliverable = await StudentDeliverable.find({ deliverable: deliverableId })
+
+    res.status(200).json(studentDeliverable)
+  } catch (err) {
+    res.status(500).json(err)
+  }
+}
+
+
+
+
+
+
+
+
 
 // Do we want any validation on submitted links here?
 // Shouldn't the status always switch to pendingAudit on submit?
@@ -168,4 +193,5 @@ export {
   showStudentDeliverable,
   gradeStudentDeliverable,
   submitStudentDeliverable,
+  markAllDeliverablesComplete,
 }

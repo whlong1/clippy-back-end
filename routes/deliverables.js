@@ -13,6 +13,8 @@ router.get('/', checkJwt, deliverablesCtrl.index)
 router.post('/', checkJwt, checkAdmin, deliverablesCtrl.create)
 router.get('/:deliverableId', checkJwt, deliverablesCtrl.show)
 router.delete('/:deliverableId', checkJwt, checkAdmin, deliverablesCtrl.deleteDeliverable)
+router.patch('/:deliverableId/mark-complete', checkJwt, deliverablesCtrl.markAllDeliverablesComplete)
+
 
 router.get('/:sdId/view', checkJwt, deliverablesCtrl.showStudentDeliverable)
 router.patch('/:sdId/submit', checkJwt, deliverablesCtrl.submitStudentDeliverable)
