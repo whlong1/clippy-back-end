@@ -84,14 +84,15 @@ async function gradeStudentDeliverable(req, res) {
 
 // ===============================================
 async function markAllDeliverablesComplete(req, res) {
-  // Admin check
   try {
     const { deliverableId } = req.params
     req.body.hasNewStatus = true
 
-    const studentDeliverable = await StudentDeliverable.find({ deliverable: deliverableId })
+    const updateResult = await StudentDeliverable.updateMany(
+      { deliverable: deliverableId }, req.body,
+    )
 
-    res.status(200).json(studentDeliverable)
+    res.status(200).json(updateResult)
   } catch (err) {
     res.status(500).json(err)
   }
