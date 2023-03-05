@@ -80,31 +80,17 @@ async function gradeStudentDeliverable(req, res) {
   }
 }
 
-
-
-// ===============================================
 async function markAllDeliverablesComplete(req, res) {
   try {
     const { deliverableId } = req.params
     req.body.hasNewStatus = true
-
-    const updateResult = await StudentDeliverable.updateMany(
-      { deliverable: deliverableId }, req.body,
-    )
-
-    res.status(200).json(updateResult)
+    await StudentDeliverable.updateMany({ deliverable: deliverableId }, req.body)
+    const [deliverable] = await Deliverable.findByIdAndJoinStudents(deliverableId)
+    res.status(200).json(deliverable)
   } catch (err) {
     res.status(500).json(err)
   }
 }
-
-
-
-
-
-
-
-
 
 // Do we want any validation on submitted links here?
 // Shouldn't the status always switch to pendingAudit on submit?
