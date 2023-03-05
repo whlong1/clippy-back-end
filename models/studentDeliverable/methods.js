@@ -25,6 +25,7 @@ function findByIdAndJoinProfileAndDeliverable(sdId) {
         deliverableId: { $first: "$deliverable._id" },
         notionUrl: { $first: "$deliverable.notionUrl" },
 
+        hasQuiz: { $first: "$deliverable.hasQuiz" },
         hasMiscUrl: { $first: "$deliverable.hasMiscUrl" },
         hasGitHubUrl: { $first: "$deliverable.hasGitHubUrl" },
         hasTrelloUrl: { $first: "$deliverable.hasTrelloUrl" },

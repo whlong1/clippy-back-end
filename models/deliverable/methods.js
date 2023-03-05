@@ -27,6 +27,7 @@ function findByIdAndJoinStudents(deliverableId) {
         name: { $first: "$name" },
         cohort: { $first: "$cohort" },
         dueDate: { $first: "$dueDate" },
+        hasQuiz: { $first: "$hasQuiz" },
         notionUrl: { $first: "$notionUrl" },
         hasMiscUrl: { $first: "$hasMiscUrl" },
         hasTrelloUrl: { $first: "$hasTrelloUrl" },

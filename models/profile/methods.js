@@ -23,6 +23,7 @@ function findByIdAndJoinDeliverables(profileId) {
             dueDate: { $first: "$deliverables.deliverable.dueDate" },
 
             // Expanded props (potential use for icons/indicators)
+            hasQuiz: { $first: "$deliverables.deliverable.hasQuiz" },
             notionUrl: { $first: "$deliverables.deliverable.notionUrl" },
             hasMiscUrl: { $first: "$deliverables.deliverable.hasMiscUrl" },
             hasTrelloUrl: { $first: "$deliverables.deliverable.hasTrelloUrl" },
