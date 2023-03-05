@@ -48,6 +48,8 @@ async function create(req, res) {
       ),
     ])
 
+    // Include studentDeliverable objects in response
+    deliverable.students = studentDeliverables
     res.status(200).json(deliverable)
   } catch (err) {
     res.status(500).json(err)
