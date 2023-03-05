@@ -38,6 +38,10 @@ const deliverableSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  hasQuiz: {
+    type: Boolean,
+    default: false
+  },
   students: [{ type: mongoose.Types.ObjectId, ref: 'StudentDeliverable' }],
 }, {
   timestamps: true,
