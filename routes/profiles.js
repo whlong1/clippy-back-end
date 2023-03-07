@@ -6,10 +6,10 @@ const router = Router()
 
 /*---------- Public Routes ----------*/
 
-
 /*---------- Protected Routes ----------*/
 
-router.get('/', checkJwt, profilesCtrl.getMyProfile)
+router.get('/', checkJwt, profilesCtrl.index)
+router.get('/me', checkJwt, profilesCtrl.getMyProfile)
 router.get('/:profileId', checkJwt, profilesCtrl.show)
 router.patch('/', checkJwt, profilesCtrl.updateProfile)
 router.patch('/:profileId', checkJwt, profilesCtrl.updateStudentSquad)
