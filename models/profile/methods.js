@@ -19,6 +19,7 @@ function findByIdAndJoinDeliverables(profileId) {
             // Necessary properties for list view:
             _id: "$deliverables._id",
             status: "$deliverables.status",
+            hasNewStatus: "$deliverables.hasNewStatus",
             name: { $first: "$deliverables.deliverable.name" },
             dueDate: { $first: "$deliverables.deliverable.dueDate" },
 

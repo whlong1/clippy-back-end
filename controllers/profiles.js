@@ -73,6 +73,7 @@ async function getMyProfile(req, res) {
   try {
     // The 'user_id' value we need can be found on req.auth.sub:
     const profile = await Profile.findOne({ user_id: req.auth.sub })
+    console.log(profile)
     if (profile) {
       res.status(200).json(profile)
     } else {
@@ -128,13 +129,13 @@ async function getAllMyDeliverables(req, res) {
     const { profileId } = req.params
     const [profile] = await Profile.findByIdAndJoinDeliverables(profileId)
 
-    // If no deliverables exist, model method returns undefined
+    // If no deliverables have been assigned, model method returns undefined
     if (!profile) {
       return res.status(200).json({ _id: profileId, deliverables: [] })
     } else {
       return res.status(200).json(profile.deliverables)
     }
-    
+
   } catch (err) {
     console.log(err)
     res.status(500).json(err)
