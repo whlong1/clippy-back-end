@@ -127,8 +127,16 @@ async function getAllMyDeliverables(req, res) {
   try {
     const { profileId } = req.params
     const [profile] = await Profile.findByIdAndJoinDeliverables(profileId)
-    res.status(200).json(profile.deliverables)
+
+    // If no deliverables exist, model method returns undefined
+    if (!profile) {
+      return res.status(200).json({ _id: profileId, deliverables: [] })
+    } else {
+      return res.status(200).json(profile.deliverables)
+    }
+    
   } catch (err) {
+    console.log(err)
     res.status(500).json(err)
   }
 }
