@@ -73,7 +73,6 @@ async function getMyProfile(req, res) {
   try {
     // The 'user_id' value we need can be found on req.auth.sub:
     const profile = await Profile.findOne({ user_id: req.auth.sub })
-    console.log(profile)
     if (profile) {
       res.status(200).json(profile)
     } else {
@@ -168,7 +167,6 @@ async function findCurrentRole(cohortId, profileId) {
   }
 
 }
-
 
 export {
   show,

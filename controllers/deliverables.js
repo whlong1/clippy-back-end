@@ -22,6 +22,7 @@ async function create(req, res) {
     const sdFormDataArray = mergedStudents.map((student) => {
       return {
         profile: student._id,
+        cohort: req.body.cohort,
         deliverable: deliverable._id,
         status: student.isWithdrawn ? 'missing' : 'assigned'
       }

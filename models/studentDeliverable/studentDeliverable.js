@@ -39,6 +39,9 @@ const studentDeliverableSchema = new mongoose.Schema({
   deliverable: {
     type: mongoose.Types.ObjectId, ref: 'Deliverable',
   },
+  cohort: {
+    type: mongoose.Types.ObjectId, ref: 'Cohort',
+  },
   hasNewStatus: {
     type: Boolean,
     default: false

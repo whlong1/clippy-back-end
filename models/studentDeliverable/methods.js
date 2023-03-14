@@ -14,6 +14,8 @@ function findByIdAndJoinProfileAndDeliverable(sdId) {
         gradingNotes: 1,
         hasNewStatus: 1,
 
+        cohort: 1,
+
         miscUrl: 1,
         gitHubUrl: 1,
         trelloUrl: 1,
