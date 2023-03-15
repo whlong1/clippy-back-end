@@ -22,8 +22,9 @@ async function create(req, res) {
 
 async function index(req, res) {
   try {
+    const selectedFields = 'name startDate endDate'
     const cohorts = await Cohort.find({})
-      .sort({ endDate: 'desc' }).select('name')
+      .sort({ endDate: 'desc' }).select(selectedFields)
     res.status(200).json(cohorts)
   } catch (err) {
     res.status(500).json(err)
