@@ -70,27 +70,22 @@ async function createCohortAndOnboardAdmin(req, res) {
   // Add admin check
   try {
     const cohort = await Cohort.create(req.body)
-    console.log('req.user', req.user)
+    const profile = await Profile.findById(req.body.profileId)
 
-    const profile = await Profile.find({ email: req.user.email })
-    console.log('profile', profile)
-
-    return res.status(200).json(profile)
-
-    // safe to find profile by email
-    // respond with profile
-
-    await Promise.all([
+    const promiseArray = await Promise.all([
       Cohort.updateOne(
         { _id: cohort._id },
-        { $addToSet: { "instructors": profileId } }
+        { $addToSet: { "instructors": profile._id } }
       ),
-      Profile.updateOne(
-        { _id: profileId },
-        { isOnboarded: true, isApprovalPending: false, cohort: cohortId }
+
+      Profile.findByIdAndUpdate(
+        profile._id,
+        { isOnboarded: true, isApprovalPending: false, cohort: cohort._id },
+        { new: true }
       ),
     ])
-    res.status(200).json(cohort)
+
+    res.status(200).json(promiseArray[1])
   } catch (err) {
     console.log(err)
   }
