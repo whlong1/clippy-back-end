@@ -1,3 +1,6 @@
+import { Cohort } from '../models/cohort/cohort.js'
+import { Profile } from '../models/profile/profile.js'
+
 import axios from 'axios'
 import { getAccessToken } from '../helpers/auth0.js'
 
