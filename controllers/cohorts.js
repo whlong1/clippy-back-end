@@ -46,7 +46,6 @@ async function getCohortPeople(req, res) {
     const [cohortPeople] = await Cohort.joinAllProfiles(req.params.cohortId)
     res.status(200).json(cohortPeople)
   } catch (err) {
-    console.log(err)
     res.status(500).json(err)
   }
 }

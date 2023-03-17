@@ -16,6 +16,7 @@ async function show(req, res) {
   try {
     const { attendanceId } = req.params
     const [attendance] = await Attendance.findByIdAndJoinProfiles(attendanceId)
+    console.log(attendance)
     res.status(200).json(attendance)
   } catch (err) {
     res.status(500).json(err)
