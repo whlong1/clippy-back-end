@@ -19,7 +19,7 @@ async function updateProfile(req, res) {
     if (!req.body.preferredName) {
       req.body.preferredName = req.body.firstName
     }
-
+    
     const { preferredName, lastName } = req.body
     const normalizedName = `${preferredName.toLowerCase()} ${lastName.toLowerCase()}`
 
