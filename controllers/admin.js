@@ -67,7 +67,6 @@ async function deleteUser(req, res) {
 }
 
 async function createCohortAndOnboardAdmin(req, res) {
-  // Add admin check
   try {
     const cohort = await Cohort.create(req.body)
     const profile = await Profile.findById(req.body.profileId)
