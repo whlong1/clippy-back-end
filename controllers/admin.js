@@ -1,3 +1,6 @@
+import { Cohort } from '../models/cohort/cohort.js'
+import { Profile } from '../models/profile/profile.js'
+
 import axios from 'axios'
 import { getAccessToken } from '../helpers/auth0.js'
 
@@ -63,9 +66,35 @@ async function deleteUser(req, res) {
   }
 }
 
+async function createCohortAndOnboardAdmin(req, res) {
+  // Add admin check
+  try {
+    const cohort = await Cohort.create(req.body)
+    const profile = await Profile.findById(req.body.profileId)
+
+    const promiseArray = await Promise.all([
+      Cohort.updateOne(
+        { _id: cohort._id },
+        { $addToSet: { "instructors": profile._id } }
+      ),
+
+      Profile.findByIdAndUpdate(
+        profile._id,
+        { isOnboarded: true, isApprovalPending: false, cohort: cohort._id },
+        { new: true }
+      ),
+    ])
+
+    res.status(200).json(promiseArray[1])
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export {
   getUsers,
   getUser,
   deleteUser,
   updateUser,
+  createCohortAndOnboardAdmin,
 }
