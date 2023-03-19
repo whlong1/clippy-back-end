@@ -45,6 +45,10 @@ const studentDeliverableSchema = new mongoose.Schema({
   hasNewStatus: {
     type: Boolean,
     default: false
+  },
+  hasStudentWithdrawn: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true

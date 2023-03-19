@@ -38,6 +38,7 @@ function findByIdAndJoinStudents(deliverableId) {
           $push: {
             _id: "$students._id",
             status: "$students.status",
+            hasStudentWithdrawn: "$students.hasStudentWithdrawn",
 
             // URL links for Deliverable show table:
             miscUrl: "$students.miscUrl",

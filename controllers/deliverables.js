@@ -24,6 +24,7 @@ async function create(req, res) {
         profile: student._id,
         cohort: req.body.cohort,
         deliverable: deliverable._id,
+        hasStudentWithdrawn: student.isWithdrawn,
         status: student.isWithdrawn ? 'missing' : 'assigned'
       }
     })
@@ -100,7 +101,7 @@ async function markAllDeliverablesComplete(req, res) {
 async function submitStudentDeliverable(req, res) {
   try {
     const { sdId } = req.params
-
+    
     req.body.status = req.body.status === 'assigned'
       ? 'pendingAudit'
       : req.body.status
