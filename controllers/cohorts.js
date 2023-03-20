@@ -57,7 +57,7 @@ async function addProfileToWaitlist(req, res) {
 
     if (isProfileInCohort) {
       return res.status(500).json({
-        message: 'Your has already been added to the waitlist for this cohort.'
+        message: 'You have already been added to the waitlist for this cohort.'
       })
     }
 
