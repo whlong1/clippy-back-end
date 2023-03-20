@@ -101,7 +101,7 @@ async function markAllDeliverablesComplete(req, res) {
 async function submitStudentDeliverable(req, res) {
   try {
     const { sdId } = req.params
-    
+
     req.body.status = req.body.status === 'assigned'
       ? 'pendingAudit'
       : req.body.status
@@ -122,12 +122,18 @@ async function submitStudentDeliverable(req, res) {
 // Instructor View for Deliverable
 async function show(req, res) {
   try {
-    // Add condition for deliverable not found?
     const { deliverableId } = req.params
     const [deliverable] = await Deliverable.findByIdAndJoinStudents(deliverableId)
-    res.status(200).json(deliverable)
+    if (deliverable) {
+      // Includes all studentDeliverable and profile information.
+      return res.status(200).json(deliverable)
+    } else {
+      // If no students exist, the deliverable will be undefined.
+      // In this case we return the basic deliverable information.
+      const deliverableInfo = await Deliverable.findById(deliverableId)
+      return res.status(200).json(deliverableInfo)
+    }
   } catch (err) {
-    console.log(err)
     res.status(500).json(err)
   }
 }
