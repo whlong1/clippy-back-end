@@ -38,8 +38,7 @@ function findByIdAndJoinStudents(deliverableId) {
           $push: {
             _id: "$students._id",
             status: "$students.status",
-            hasStudentWithdrawn: "$students.hasStudentWithdrawn",
-
+            
             // URL links for Deliverable show table:
             miscUrl: "$students.miscUrl",
             gitHubUrl: "$students.gitHubUrl",
@@ -54,6 +53,8 @@ function findByIdAndJoinStudents(deliverableId) {
             preferredName: { $first: "$students.profile.preferredName" },
             normalizedName: { $first: "$students.profile.normalizedName" },
             gitHubUserName: { $first: "$students.profile.gitHubUserName" },
+
+            isWithdrawn: { $first: "$students.profile.isWithdrawn" },
             // Additional fields from the profile can be specified here.
           },
         },

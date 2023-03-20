@@ -24,7 +24,6 @@ async function create(req, res) {
         profile: student._id,
         cohort: req.body.cohort,
         deliverable: deliverable._id,
-        hasStudentWithdrawn: student.isWithdrawn,
         status: student.isWithdrawn ? 'missing' : 'assigned'
       }
     })
