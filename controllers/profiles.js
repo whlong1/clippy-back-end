@@ -57,8 +57,11 @@ async function show(req, res) {
       isApprovalPending: 1,
     }
 
-    const currentRole = await findCurrentRole(cohortId, profileId)
-    const profile = await Profile.findById(profileId).select(fields).lean()
+    const [currentRole, profile] = await Promise.all([
+      findCurrentRole(cohortId, profileId),
+      Profile.findById(profileId).select(fields).lean()
+    ])
+
     res.status(200).json({ ...profile, role: currentRole })
   } catch (err) {
     console.log(err)
