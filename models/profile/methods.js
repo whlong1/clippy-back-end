@@ -31,6 +31,8 @@ function findByIdAndJoinDeliverables(profileId) {
             hasGitHubUrl: { $first: "$deliverables.deliverable.hasGitHubUrl" },
             hasDeploymentUrl: { $first: "$deliverables.deliverable.hasDeploymentUrl" },
             hasCodeSandboxUrl: { $first: "$deliverables.deliverable.hasCodeSandboxUrl" },
+            // New
+            cohort: { $first: "$deliverables.deliverable.cohort" },
           },
         },
       },
