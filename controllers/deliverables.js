@@ -105,9 +105,6 @@ async function submitStudentDeliverable(req, res) {
       ? 'pendingAudit'
       : req.body.status
 
-    // Refactor for auth0:
-    // if (req.body.profile === req.user.profile) { }
-
     const studentDeliverable = await StudentDeliverable.findByIdAndUpdate(
       sdId, req.body, { new: true }
     )
@@ -176,7 +173,6 @@ async function deleteDeliverable(req, res) {
 
     res.status(200).json({ msg: 'OK' })
   } catch (err) {
-    console.log(err)
     res.status(500).json(err)
   }
 }

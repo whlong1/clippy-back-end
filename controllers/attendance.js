@@ -53,7 +53,6 @@ async function update(req, res) {
 async function deleteAttendance(req, res) {
   try {
     // Add admin check
-    // return res.status(200).json({ _id: req.params.attendanceId })
     const { attendanceId } = req.params
     const attendance = await Attendance.findByIdAndDelete(attendanceId)
 
