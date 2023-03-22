@@ -1,4 +1,4 @@
-<img src="src/assets/logos/logotypes/logotype-sq-b-dark.svg"/>
+<img src="https://i.imgur.com/sIaXROA.png"/>
 
 ## Clippy Back-end
 
