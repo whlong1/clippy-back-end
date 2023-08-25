@@ -8,7 +8,7 @@ Clippy is a web application designed to simplify the management of online course
 
 ## Getting Started
 
-To run the Clippy Front-end on your local machine, follow these steps:
+To run the Clippy Back-end on your local machine, follow these steps:
 
 1. Clone this repository:
 
