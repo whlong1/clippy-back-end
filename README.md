@@ -13,7 +13,7 @@ To run the Clippy Back-end on your local machine, follow these steps:
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/[username]/clippy-back-end.git
+    git clone https://github.com/whlong1/clippy-back-end.git
     ```
 
 2. Navigate to the project directory:
